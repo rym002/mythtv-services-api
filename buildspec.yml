@@ -5,8 +5,13 @@ phases:
       nodejs: 10
     commands:
       - npm install -g typescript
-  build:
+  pre_build:
     commands:
       - npm install
+  build:
+    commands:
       - tsc
+  post_build:
+    commands:
+      - echo ${NPM_TOKEN}
       - npm publish
