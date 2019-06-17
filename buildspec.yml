@@ -13,5 +13,4 @@ phases:
       - tsc
   post_build:
     commands:
-      - echo ${NPM_TOKEN}
       - npm publish
