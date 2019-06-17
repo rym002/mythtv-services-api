@@ -7,4 +7,5 @@ phases:
       - npm install -g typescript
   build:
     commands:
+      - npm install
       - tsc
