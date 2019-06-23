@@ -23,3 +23,5 @@
   * SendKey
   * PlayRecording
   * PlayVideo
+  * GetContextList
+  * SendNotification

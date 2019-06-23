@@ -3,14 +3,12 @@ phases:
   install:
     runtime-versions:
       nodejs: 10
-    commands:
-      - npm install -g typescript
   pre_build:
     commands:
-      - npm install
+      - npm install      
   build:
     commands:
-      - tsc
-  post_build:
-    commands:
-      - npm publish
+      - npm run build
+      - npm run test
+      - npm run generate-npmrc
+      - npm publish $PUBLISH_ARGS
