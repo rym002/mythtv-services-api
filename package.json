@@ -1,6 +1,6 @@
 {
   "name": "mythtv-services-api",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Mythtv Service Api Bindings",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,14 +15,16 @@
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.1.7",
+    "@types/chai-as-promised": "^7.1.0",
     "@types/mocha": "^5.2.7",
     "@types/nock": "^10.0.3",
-    "@types/node": "^10.14.9",
+    "@types/node": "^10.14.13",
     "chai": "^4.2.0",
-    "mocha": "^6.1.4",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^6.2.0",
     "nock": "^10.0.6",
     "ts-node": "^8.3.0",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   },
   "dependencies": {
     "axios": "^0.18.1"

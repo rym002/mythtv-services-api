@@ -1,8 +1,12 @@
-import * as nock from 'nock';
-import { expect, should, assert } from 'chai';
+import { expect, use } from 'chai';
+import * as chaiAsPromised from 'chai-as-promised';
 import 'mocha';
-import { backendNock, toString, toBool } from './MockHelpers'
-import { frontend, Frontend, PriorityType, NotificationType, VisibilityType } from '../src/'
+import * as nock from 'nock';
+import { frontend, Frontend, NotificationType, PriorityType, VisibilityType } from '../src/';
+import { backendNock, toBool, toString } from './MockHelpers';
+
+use(chaiAsPromised);
+
 describe('Frontend', () => {
     before(() => {
         backendNock('Myth')
@@ -106,14 +110,7 @@ describe('Frontend', () => {
         expect(fe.hostname()).to.equal('testgoodfe');
     })
     it('Create Invalid Frontend', async () => {
-        let isError: boolean = false;
-        try {
-            const fe = await frontend("testbadfe");
-        } catch (err) {
-            isError = true
-            expect(err).to.contain('Invalid');
-        }
-        assert.isTrue(isError, 'Call Should Throw Exception');
+        await expect(frontend("testbadfe")).to.rejected.and.eventually.contain('Invalid');
     })
 
     it('GetActionList', async () => {
@@ -182,15 +179,10 @@ describe('Frontend', () => {
     it('Bool Fail', async () => {
         const fe = createFrontend();
         let isError: boolean = false;
-        try {
-            await fe.SendKey({
-                Key: 'Fail'
-            })
-        } catch (err) {
-            isError = true;
-            expect(err).to.contain('Failed')
-        }
-        assert.isTrue(isError, 'Call Should Throw Exception');
+        await expect(fe.SendKey({
+            Key: 'Fail'
+        })).to.be.rejected
+        .to.eventually.contain('Failed')
     })
 })
 
