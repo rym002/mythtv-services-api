@@ -36,6 +36,13 @@ interface GetRecordedListRequest {
     RecGroup?: string;
     StorageGroup?: string
 }
+
+interface GetUpcomingListRequest {
+    StartIndex?: number;
+    Count?: number;
+    ShowAll?: boolean;
+}
+
 const api = 'Dvr';
 export class DvrService extends AbstractService {
     async GetEncoderList(): Promise<Encoder[]> {
@@ -45,6 +52,11 @@ export class DvrService extends AbstractService {
 
     async GetRecordedList(req: GetRecordedListRequest): Promise<ProgramList> {
         const ret = await this.serviceProvider.get<ProgramListResponse>(api, 'GetRecordedList', req);
+        return ret.ProgramList;
+    }
+
+    async GetUpcomingList(req: GetUpcomingListRequest): Promise<ProgramList> {
+        const ret = await this.serviceProvider.get<ProgramListResponse>(api, 'GetUpcomingList', req);
         return ret.ProgramList;
     }
 }

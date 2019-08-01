@@ -23,8 +23,18 @@ describe('DvrService', () => {
                         Count: 1
                     }
                 };
+        }).get('/GetUpcomingList')
+            .query({
+                ShowAll: true
+            }).reply(200, () => {
+                return {
+                    ProgramList: {
+                        Count: 1
+                    }
+                };
             })
     })
+    
     it('GetEncoderList', async () => {
         expect(await backend.dvrService.GetEncoderList()).to.include.deep.members([{ Id: 1 }]);
     })
@@ -32,6 +42,12 @@ describe('DvrService', () => {
     it('GetRecordedList', async () => {
         expect(await backend.dvrService.GetRecordedList({
             TitleRegEx: 'ABC'
+        })).to.have.property('Count', 1)
+    })
+
+    it('GetUpcomingList', async () => {
+        expect(await backend.dvrService.GetUpcomingList({
+            ShowAll: true
         })).to.have.property('Count', 1)
     })
 })

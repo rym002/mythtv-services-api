@@ -9,6 +9,7 @@
   * DVR Service
     * GetEncoderList
     * GetRecordedList
+    * GetUpcomingList
   * Myth Service
     * GetHostName
     * GetHosts
