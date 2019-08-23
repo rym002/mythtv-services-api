@@ -7,7 +7,6 @@
   "scripts": {
     "prepack": "tsc",
     "test": "mocha -r ts-node/register test/*.test.ts",
-    "prepublishOnly": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc",
     "clean": "rm .npmrc"
   },
   "keywords": [],

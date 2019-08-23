@@ -9,4 +9,5 @@ phases:
   build:
     commands:
       - npm test
-      - npm publish $PUBLISH_ARGS --unsafe-perm 
+      - echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+      - npm publish $PUBLISH_ARGS --unsafe-perm
