@@ -9,7 +9,9 @@
     "test": "mocha -r ts-node/register test/*.test.ts",
     "clean": "rm .npmrc"
   },
-  "keywords": [],
+  "keywords": [
+    "mythtv"
+  ],
   "author": "Raymond Munian",
   "license": "ISC",
   "devDependencies": {
