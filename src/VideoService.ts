@@ -1,5 +1,5 @@
 import { AbstractService } from './Communication';
-interface VideoMetadataInfo {
+export interface VideoMetadataInfo {
     Id: number
     Title: string
     SubTitle: string
@@ -36,36 +36,36 @@ interface VideoMetadataInfo {
     Cast: CastMembers
     Genres: GenreList
 }
-interface ArtworkInfo {
+export interface ArtworkInfo {
     URL: string
     FileName: string
     StorageGroup: string
     Type: string
 }
 
-interface ArtworkInfos {
+export interface ArtworkInfos {
     ArtworkInfos: ArtworkInfo[]
 }
 
-interface CastMember {
+export interface CastMember {
     Name: string
     CharacterName: string
     Role: string
     TranslatedRole: string
 }
 
-interface CastMembers {
+export interface CastMembers {
     CastMembers: CastMember[]
 }
 
-interface Genre {
+export interface Genre {
     Name: string
 }
 
-interface GenreList {
+export interface GenreList {
     GenreList: Genre[]
 }
-interface VideoMetadataInfoList {
+export interface VideoMetadataInfoList {
     StartIndex: number
     Count: number
     CurrentPage: number
@@ -81,7 +81,7 @@ interface VideoMetadataInfoListResp {
     VideoMetadataInfoList: VideoMetadataInfoList
 }
 
-interface GetVideoListReq {
+export interface GetVideoListReq {
     Folder?: string
     Sort?: string
     Descending?: boolean

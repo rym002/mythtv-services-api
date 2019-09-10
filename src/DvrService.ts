@@ -1,7 +1,7 @@
 import { Program } from "./CommonTypes";
 import { AbstractService } from "./Communication";
 
-interface Encoder {
+export interface Encoder {
     Id: number;
     Recording: Program;
     Connected: boolean;
@@ -14,7 +14,7 @@ interface EncoderList {
     EncoderList: Encoders
 }
 
-interface ProgramList {
+export interface ProgramList {
     StartIndex: number;
     Count: number;
     TotalAvailable: number;
@@ -28,7 +28,7 @@ interface ProgramListResponse {
     ProgramList: ProgramList
 }
 
-interface GetRecordedListRequest {
+export interface GetRecordedListRequest {
     GetRecordedList?: boolean;
     StartIndex?: number;
     Count?: number;
@@ -37,7 +37,7 @@ interface GetRecordedListRequest {
     StorageGroup?: string
 }
 
-interface GetUpcomingListRequest {
+export interface GetUpcomingListRequest {
     StartIndex?: number;
     Count?: number;
     ShowAll?: boolean;

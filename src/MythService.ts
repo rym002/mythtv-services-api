@@ -1,7 +1,7 @@
 import { StringGet, StringList } from "./CommonTypes";
 import { AbstractService } from './Communication';
 
-interface GetSettingRequest {
+export interface GetSettingRequest {
     Key: string;
     HostName?: string;
     Default?: string
