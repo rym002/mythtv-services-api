@@ -1,29 +1,10 @@
-import { Program, ChannelInfo } from "./CommonTypes";
+import { ChannelInfo } from "./CommonTypes";
 import { AbstractService } from "./Communication";
 
 interface ChannelInfoResponse {
-    ChannelInfo: DetailedChannelInfo
+    ChannelInfo: ChannelInfo
 }
 
-export interface DetailedChannelInfo extends ChannelInfo {
-    IconURL: string;
-    MplexId?: number;
-    ServiceId?: number;
-    ATSCMajorChan?: number;
-    ATSCMinorChan?: number;
-    Format?: string;
-    FrequencyId?: string;
-    FineTune?: number;
-    ChanFilters?: string;
-    SourceId?: number;
-    InputId?: number;
-    CommFree?: boolean;
-    UseEIT?: boolean;
-    Visible?: boolean;
-    XMLTVID?: string;
-    DefaultAuth?: string;
-    Programs: Program[]
-}
 
 interface GetVideoSourceList {
     VideoSourceList: VideoSourceList
@@ -61,7 +42,7 @@ export interface ChannelInfoList {
     AsOf: Date;
     Version: string;
     ProtoVer: string;
-    ChannelInfos: DetailedChannelInfo[];
+    ChannelInfos: ChannelInfo[];
 }
 
 interface GetChannelInfoListRequest {
@@ -73,7 +54,7 @@ interface GetChannelInfoListRequest {
 }
 const api = 'Channel';
 export class ChannelService extends AbstractService {
-    async GetChannelInfo(chanID: number): Promise<DetailedChannelInfo> {
+    async GetChannelInfo(chanID: number): Promise<ChannelInfo> {
         const value = await this.serviceProvider.get<ChannelInfoResponse>(api, 'GetChannelInfo', { ChanID: chanID });
         return value.ChannelInfo;
     }

@@ -54,6 +54,23 @@ export interface ChannelInfo {
     ChanNum: string;
     CallSign: string;
     ChannelName: string;
+    IconURL: string;
+    MplexId?: number;
+    ServiceId?: number;
+    ATSCMajorChan?: number;
+    ATSCMinorChan?: number;
+    Format?: string;
+    FrequencyId?: string;
+    FineTune?: number;
+    ChanFilters?: string;
+    SourceId?: number;
+    InputId?: number;
+    CommFree?: boolean;
+    UseEIT?: boolean;
+    Visible?: boolean;
+    XMLTVID?: string;
+    DefaultAuth?: string;
+    Programs: Program[]
 }
 export interface Program {
     Recording: RecordingInfo;
