@@ -8,7 +8,7 @@ export interface String {
 }
 
 export interface Bool {
-    bool: string;
+    bool: boolean;
 }
 
 
@@ -88,7 +88,7 @@ export interface Program {
 
 export async function BoolPost(serviceProvider: ServiceProvider, api: string, service: string, params?: any, data?: any): Promise<void> {
     const resp = await serviceProvider.post<Bool>(api, service, params, data);
-    if (resp.bool == 'false') {
+    if (!resp.bool) {
         throw 'Failed api:' + api + ' service:' + service;
     }
 }

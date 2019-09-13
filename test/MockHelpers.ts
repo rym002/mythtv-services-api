@@ -1,5 +1,5 @@
 import * as nock from 'nock';
-import { StringList, String, Bool } from '../src/index';
+import { StringList, String } from '../src/index';
 
 export function backendNock(apiName: string) {
     return nock("http://localhost:6544/" + apiName)
@@ -17,7 +17,7 @@ export function toString(data: string): String {
     }
 }
 
-export function toBool(data: boolean): Bool {
+export function toBool(data: boolean) {
     return {
         bool: data + ''
     }
