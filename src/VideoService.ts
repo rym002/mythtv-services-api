@@ -17,8 +17,8 @@ export interface VideoMetadataInfo {
     ChildID: number
     Length: number
     PlayCount: number
-    Season: string
-    Episode: string
+    Season: number
+    Episode: number
     ParentalLevel: number
     Visible: boolean
     Watched: boolean
