@@ -36,7 +36,8 @@ const booleanParser = new RegExp('^false$|^true$')
 const parserExcludes: string[] = [
     'ProtoVer',
     'FrequencyId',
-    'XMLTVID'
+    'XMLTVID',
+    'ChanNum'
 ]
 
 function mythtvJsonReviver(key: any, value: any) {
