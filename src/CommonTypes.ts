@@ -42,49 +42,100 @@ export enum RecStatusType {
 }
 
 export interface RecordingInfo {
-    RecordedId: number;
-    Status: RecStatusType;
-    RecordId: number;
-    RecGroup: string;
-    PlayGroup: string;
-    StorageGroup: string;
+    RecordedId: number
+    Status: RecStatusType
+    Priority: number
+    StartTs: Date
+    EndTs: Date
+    FileSize: number
+    FileName: string
+    HostName: string
+    LastModified: Date
+    RecordId: number
+    RecGroup: string
+    PlayGroup: string
+    StorageGroup: string
+    RecType: number
+    DupInType: number
+    DupMethod: number
+    EncoderId: number
+    EncoderName: string
+    Profile: string
 }
 export interface ChannelInfo {
-    ChanId: number;
-    ChanNum: string;
-    CallSign: string;
-    ChannelName: string;
-    IconURL: string;
-    MplexId?: number;
-    ServiceId?: number;
-    ATSCMajorChan?: number;
-    ATSCMinorChan?: number;
-    Format?: string;
-    FrequencyId?: string;
-    FineTune?: number;
-    ChanFilters?: string;
-    SourceId?: number;
-    InputId?: number;
-    CommFree?: boolean;
-    UseEIT?: boolean;
-    Visible?: boolean;
-    XMLTVID?: string;
-    DefaultAuth?: string;
+    ChanId: number
+    ChanNum: string
+    CallSign: string
+    ChannelName: string
+    IconURL: string
+    MplexId?: number
+    ServiceId?: number
+    ATSCMajorChan?: number
+    ATSCMinorChan?: number
+    Format?: string
+    FrequencyId?: string
+    FineTune?: number
+    ChanFilters?: string
+    SourceId?: number
+    InputId?: number
+    CommFree?: boolean
+    UseEIT?: boolean
+    Visible?: boolean
+    XMLTVID?: string
+    DefaultAuth?: string
     Programs: Program[]
 }
 export interface Program {
-    Recording: RecordingInfo;
-    Title: string;
-    Channel: ChannelInfo;
-    Description: string;
-    Category: string;
-    CatType: string;
-    Season: string;
-    Episode: string;
-    Airdate: string;
-    ProgramId: string;
+    StartTime: Date
+    EndTime: Date
+    Title: string
+    SubTitle: string
+    Category: string
+    CatType: string
+    Repeat: boolean
+    VideoProps: number
+    AudioProps: number
+    SubProps: number
+    SeriesId: string
+    ProgramId: string
+    Stars: number
+    LastModified: Date
+    ProgramFlags: number
+    Airdate: Date
+    Description: string
+    Inetref: string
+    Season: number
+    Episode: number
+    TotalEpisodes: number
+    FileSize: number
+    FileName: string
+    HostName: string
+    Channel: ChannelInfo
+    Recording: RecordingInfo
+    Artwork: ArtworkInfoList
 }
 
+export interface ArtworkInfo {
+    URL: string
+    FileName: string
+    StorageGroup: string
+    Type: string
+}
+
+export interface ArtworkInfoList {
+    ArtworkInfos: ArtworkInfo[]
+}
+
+export interface CastMemberList {
+    CastMembers: CastMember[]
+}
+
+export interface CastMember {
+    Name: string
+    CharacterName: string
+    Role: string
+    TranslatedRole: string
+}
 
 export async function BoolPost(serviceProvider: ServiceProvider, api: string, service: string, params?: any, data?: any): Promise<void> {
     const resp = await serviceProvider.post<Bool>(api, service, params, data);
