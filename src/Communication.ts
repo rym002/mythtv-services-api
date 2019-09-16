@@ -30,14 +30,15 @@ myAxios.interceptors.response.use((response) => {
     console.timeEnd(response.config.headers[time_header])
     return response;
 })
-const numberParser = new RegExp('^[0-9]+$')
-const dateParser = new RegExp('^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$')
+const numberParser = new RegExp('^\\d+(?:\.\\d+)?$')
+const dateParser = new RegExp('^\\d{4}-[01]\\d-[0-3]\\d(?:T[0-2]\\d(?::[0-5]\\d){2}Z)?$')
 const booleanParser = new RegExp('^false$|^true$')
 const parserExcludes: string[] = [
     'ProtoVer',
     'FrequencyId',
     'XMLTVID',
-    'ChanNum'
+    'ChanNum',
+    'String'
 ]
 
 function mythtvJsonReviver(key: any, value: any) {
@@ -49,6 +50,14 @@ function mythtvJsonReviver(key: any, value: any) {
         } else if (booleanParser.test(value)) {
             return value === 'true'
         }
+    }
+    if (key === 'StringList') {
+        return value.map((arrayVal: any) => {
+            if (typeof arrayVal === 'number') {
+                return arrayVal + ''
+            }
+            return arrayVal
+        })
     }
     return value;
 }
