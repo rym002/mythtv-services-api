@@ -57,7 +57,7 @@ export async function getFrontendServices(online: boolean): Promise<Frontend.Ser
         OnLine: online
     })
     const frontendPromises = frontendHosts.map(async frontendHost => {
-        return await frontend(frontendHost.IP, frontendHost.Port)
+        return await frontend(frontendHost.Name, frontendHost.Port)
     })
     return Promise.all(frontendPromises)
 }

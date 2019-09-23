@@ -59,7 +59,7 @@ describe('Frontend', () => {
             .reply(200, {
                 FrontendList: {
                     Frontends: [{
-                        IP: 'testfe',
+                        Name: 'testfe',
                         Port: 123
                     }]
                 }
