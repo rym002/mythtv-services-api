@@ -1,6 +1,6 @@
 import { AbstractService } from "./Communication";
 import { IntPost, BoolPost } from "./CommonTypes";
-import ApiTypes from "ApiTypes";
+import ApiTypes from "./ApiTypes";
 
 export namespace CaptureService {
     export namespace Request {

@@ -1,6 +1,6 @@
 import { AbstractService, HostConfig } from './Communication';
 import { BoolPost, StringListGet, InternalTypes } from './CommonTypes'
-import ApiTypes from 'ApiTypes';
+import ApiTypes from './ApiTypes';
 
 export namespace Frontend {
     namespace Response {
