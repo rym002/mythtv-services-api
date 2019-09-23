@@ -2,20 +2,148 @@
 ## Typescript Client library for mythtv services API
 ### Supports
 * Backend APIs
+  * Capture Service
+    * AddCaptureCard
+    * AddCardInput
+    * GetCaptureCard
+    * GetCaptureCardList
+    * RemoveCaptureCard
+    * RemoveCardInput
+    * UpdateCaptureCard
+    * UpdateCardInput
   * Channel Service
+    * AddDBChannel
+    * AddVideoSource
+    * FetchChannelsFromSource
     * GetChannelInfo
-    * GetVideoSourceList
     * GetChannelInfoList
+    * GetDDLineupList
+    * GetVideoMultiplex
+    * GetVideoMultiplexList
+    * GetVideoSource
+    * GetVideoSourceList
+    * GetXMLTVIdList*
+    * RemoveDBChannel
+    * RemoveVideoSource
+    * UpdateDBChannel
+    * UpdateVideoSource
+  * Content Service
+    * AddLiveStream
+    * AddRecordingLiveStream
+    * AddVideoLiveStream
+    * DownloadFile
+    * GetAlbumArt
+    * GetDirList
+    * GetFile
+    * GetFileList
+    * GetHash
+    * GetImageFile
+    * GetLiveStream
+    * GetLiveStreamList
+    * GetMusic
+    * GetPreviewImage
+    * GetProgramArtworkList
+    * GetRecording
+    * GetRecordingArtwork
+    * GetRecordingArtworkList
+    * GetVideo
+    * GetVideoArtwork
+    * RemoveLiveStream
+    * StopLiveStream
   * DVR Service
+    * AddDontRecordSchedule
+    * AddRecordSchedule
+    * DeleteRecording
+    * DisableRecordSchedule
+    * DupInToDescription
+    * DupInToString
+    * DupMethodToDescription
+    * DupMethodToString
+    * EnableRecordSchedule
+    * GetConflictList
     * GetEncoderList
+    * GetExpiringList
+    * GetInputList
+    * GetOldRecordedList
+    * GetPlayGroupList
+    * GetRecGroupList
+    * GetRecRuleFilterList
+    * GetRecStorageGroupList
+    * GetRecordSchedule
+    * GetRecordScheduleList
+    * GetRecorded
+    * GetRecordedCommBreak
+    * GetRecordedCutList
     * GetRecordedList
+    * GetRecordedSeek
+    * GetSavedBookmark
+    * GetTitleInfoList
+    * GetTitleList
     * GetUpcomingList
+    * ReactivateRecording
+    * RecStatusToDescription
+    * RecStatusToString
+    * RecTypeToDescription
+    * RecTypeToString
+    * RecordedIdForPathname
+    * RemoveRecordSchedule
+    * RemoveRecorded
+    * RescheduleRecordings
+    * SetSavedBookmark
+    * StopRecording
+    * UnDeleteRecording
+    * UpdateRecordSchedule
+    * UpdateRecordedWatchedStatus
+  * Guide Service
+    * AddToChannelGroup
+    * GetCategoryList
+    * GetChannelGroupList
+    * GetChannelIcon
+    * GetProgramDetails
+    * GetProgramGuide
+    * GetProgramList
+    * GetStoredSearches
+    * RemoveFromChannelGroup
   * Myth Service
+    * AddStorageGroupDir
+    * BackupDatabase
+    * ChangePassword
+    * CheckDatabase
+    * GetBackendInfo
+    * GetConnectionInfo
+    * GetFormatDate
+    * GetFormatDateTime
+    * GetFormatTime
+    * GetFrontends
     * GetHostName
     * GetHosts
+    * GetKeys
+    * GetLogs
     * GetSetting
+    * GetSettingList
+    * GetStorageGroupDirs
+    * GetTimeZone
+    * ParseISODateString
+    * ProfileDelete
+    * ProfileSubmit
+    * ProfileText
+    * ProfileURL
+    * ProfileUpdated
+    * PutSetting
+    * RemoveStorageGroupDir
+    * SendMessage
+    * SendNotification
+    * TestDBSettings
   * Video Service
+    * AddVideo
+    * GetBluray
+    * GetVideo
+    * GetVideoByFileName
     * GetVideoList
+    * LookupVideo
+    * RemoveVideoFromDB
+    * UpdateVideoMetadata
+    * UpdateVideoWatchedStatus
 * Frontend APIs
   * GetActionList
   * GetStatus

@@ -1,97 +1,129 @@
 import { AbstractService } from './Communication';
-export interface VideoMetadataInfo {
-    Id: number
-    Title: string
-    SubTitle: string
-    Tagline: string
-    Director: string
-    Studio: string
-    Description: string
-    Certification: string
-    Inetref: string
-    Collectionref: number
-    HomePage: string
-    ReleaseDate: Date
-    AddDate: Date
-    UserRating: number
-    ChildID: number
-    Length: number
-    PlayCount: number
-    Season: number
-    Episode: number
-    ParentalLevel: number
-    Visible: boolean
-    Watched: boolean
-    Processed: boolean
-    ContentType: string
-    FileName: string
-    Hash: string
-    HostName: string
-    Coverart: string
-    Fanart: string
-    Banner: string
-    Screenshot: string
-    Trailer: string
-    Artwork: ArtworkInfos
-    Cast: CastMembers
-    Genres: GenreList
-}
-export interface ArtworkInfo {
-    URL: string
-    FileName: string
-    StorageGroup: string
-    Type: string
-}
+import { BoolPost } from './CommonTypes';
+import ApiTypes from './ApiTypes'
 
-export interface ArtworkInfos {
-    ArtworkInfos: ArtworkInfo[]
-}
-
-export interface CastMember {
-    Name: string
-    CharacterName: string
-    Role: string
-    TranslatedRole: string
-}
-
-export interface CastMembers {
-    CastMembers: CastMember[]
-}
-
-export interface Genre {
-    Name: string
-}
-
-export interface GenreList {
-    GenreList: Genre[]
-}
-export interface VideoMetadataInfoList {
-    StartIndex: number
-    Count: number
-    CurrentPage: number
-    TotalPages: number
-    TotalAvailable: number
-    AsOf: Date
-    Version: string
-    ProtoVer: string
-    VideoMetadataInfos: VideoMetadataInfo[]
-}
-
-interface VideoMetadataInfoListResp {
-    VideoMetadataInfoList: VideoMetadataInfoList
-}
-
-export interface GetVideoListReq {
-    Folder?: string
-    Sort?: string
-    Descending?: boolean
-    StartIndex?: number
-    Count?: number
-}
-const api = 'Video';
-export class VideoService extends AbstractService {
-    async GetVideoList(req: GetVideoListReq): Promise<VideoMetadataInfoList> {
-        const ret = await this.serviceProvider.get<VideoMetadataInfoListResp>(api, 'GetVideoList', req);
-        return ret.VideoMetadataInfoList;
+export namespace VideoService {
+    export namespace Request {
+        export interface GetVideoList extends ApiTypes.SortedListRequest {
+            Folder?: string
+        }
+        export interface AddVideo {
+            FileName: string
+            HostName: string
+        }
+        export interface GetBluray {
+            Path: string
+        }
+        export interface GetVideo {
+            Id: number
+        }
+        export interface GetVideoByFileName {
+            FileName: string
+        }
+        export interface LookupVideo {
+            Title: string
+            Subtitle?: string
+            Inetref?: string
+            Season?: number
+            Episode?: number
+            GrabberType?: string
+            AllowGeneric?: boolean
+        }
+        export interface RemoveVideoFromDB {
+            Id: number
+        }
+        export interface UpdateVideoMetadata {
+            Id: number
+            Title?: string
+            SubTitle?: string
+            TagLine?: string
+            Director?: string
+            Studio?: string
+            Plot?: string
+            Rating?: string
+            Inetref?: string
+            CollectionRef?: number
+            HomePage?: string
+            Year?: number
+            ReleaseDate?: Date
+            UserRating?: number
+            Length?: number
+            PlayCount?: number
+            Season?: number
+            Episode?: number
+            ShowLevel?: number
+            FileName?: string
+            Hash?: string
+            CoverFile?: string
+            ChildID?: number
+            Browse?: boolean
+            Watched?: boolean
+            Processed?: boolean
+            PlayCommand?: string
+            Category?: number
+            Trailer?: string
+            Host?: string
+            Screenshot?: string
+            Banner?: string
+            Fanart?: string
+            InsertDate?: Date
+            ContentType?: string
+            Genres?: string
+            Cast?: string
+            Countries?: string
+        }
+        export interface UpdateVideoWatchedStatus {
+            Id: number
+            Watched: boolean
+        }
+    }
+    namespace Response {
+        export interface VideoMetadataInfoList {
+            VideoMetadataInfoList: ApiTypes.VideoMetadataInfoList
+        }
+        export interface BlurayInfo {
+            BlurayInfo: ApiTypes.BlurayInfo
+        }
+        export interface VideoMetadataInfo {
+            VideoMetadataInfo: ApiTypes.VideoMetadataInfo
+        }
+        export interface VideoLookupList {
+            VideoLookupList: ApiTypes.VideoLookupList
+        }
+    }
+    const api = 'Video';
+    export class Service extends AbstractService {
+        async GetVideoList(req: Request.GetVideoList): Promise<ApiTypes.VideoMetadataInfoList> {
+            const ret = await this.serviceProvider.get<Response.VideoMetadataInfoList>(api, 'GetVideoList', req);
+            return ret.VideoMetadataInfoList;
+        }
+        async AddVideo(req: Request.AddVideo) {
+            return BoolPost(this.serviceProvider, api, 'AddVideo', req);
+        }
+        async GetBluray(req: Request.GetBluray): Promise<ApiTypes.BlurayInfo> {
+            const ret = await this.serviceProvider.get<Response.BlurayInfo>(api, 'GetBluray', req);
+            return ret.BlurayInfo;
+        }
+        async GetVideo(req: Request.GetVideo): Promise<ApiTypes.VideoMetadataInfo> {
+            const ret = await this.serviceProvider.get<Response.VideoMetadataInfo>(api, 'GetVideo', req);
+            return ret.VideoMetadataInfo;
+        }
+        async GetVideoByFileName(req: Request.GetVideoByFileName): Promise<ApiTypes.VideoMetadataInfo> {
+            const ret = await this.serviceProvider.get<Response.VideoMetadataInfo>(api, 'GetVideoByFileName', req);
+            return ret.VideoMetadataInfo;
+        }
+        async LookupVideo(req: Request.LookupVideo): Promise<ApiTypes.VideoLookupList> {
+            const ret = await this.serviceProvider.get<Response.VideoLookupList>(api, 'LookupVideo', req);
+            return ret.VideoLookupList;
+        }
+        async RemoveVideoFromDB(req: Request.RemoveVideoFromDB) {
+            return BoolPost(this.serviceProvider, api, 'RemoveVideoFromDB', req);
+        }
+        async UpdateVideoMetadata(req: Request.UpdateVideoMetadata) {
+            return BoolPost(this.serviceProvider, api, 'UpdateVideoMetadata', req);
+        }
+        async UpdateVideoWatchedStatus(req: Request.UpdateVideoWatchedStatus) {
+            return BoolPost(this.serviceProvider, api, 'UpdateVideoWatchedStatus', req);
+        }
     }
 }

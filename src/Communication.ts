@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { Agent } from 'http';
+import { stringify } from 'qs'
+import * as moment from 'moment'
+import { Readable, Writable } from 'stream';
 const time_header = 'start_time'
 let counter = 0;
 
-const myAxios = axios.create({
+const jsonAxios = axios.create({
     httpsAgent: new Agent(
         { keepAlive: true }),
     transformResponse: [
@@ -17,28 +20,36 @@ const myAxios = axios.create({
             }
             return data;
         }
-    ]
+    ],
+    paramsSerializer: (params: any) => {
+        return stringify(params, {
+            serializeDate: (d: Date) => {
+                return moment.utc(d).format('YYYY-MM-DDTHH:mm:ss')
+            }
+        })
+    }
 });
-myAxios.interceptors.request.use((request) => {
+jsonAxios.interceptors.request.use((request) => {
     const requestCounter = request.url + ":" + counter++
     console.time(requestCounter)
     request.headers[time_header] = requestCounter
     return request;
 });
 
-myAxios.interceptors.response.use((response) => {
+jsonAxios.interceptors.response.use((response) => {
     console.timeEnd(response.config.headers[time_header])
     return response;
 })
 const numberParser = new RegExp('^\\d+(?:\.\\d+)?$')
-const dateParser = new RegExp('^\\d{4}-[01]\\d-[0-3]\\d(?:T[0-2]\\d(?::[0-5]\\d){2}Z)?$')
+const dateParser = new RegExp('^\\d{4}-[01]\\d-[0-3]\\d(?:T[0-2]\\d(?::[0-5]\\d){2}(?:\.\\d{3})?Z)?$')
 const booleanParser = new RegExp('^false$|^true$')
 const parserExcludes: string[] = [
     'ProtoVer',
     'FrequencyId',
     'XMLTVID',
     'ChanNum',
-    'String'
+    'String',
+    'Version'
 ]
 
 function mythtvJsonReviver(key: any, value: any) {
@@ -75,14 +86,22 @@ export class ServiceProvider {
     }
 
     async get<T>(api: string, service: string, params?: any): Promise<T> {
-        let uri = this.getUri(api, service);
-        const value = await myAxios.get<T>(uri, { params: params });
+        const uri = this.getUri(api, service);
+        const value = await jsonAxios.get<T>(uri, { params: params });
         return value.data;
     }
     async post<T>(api: string, service: string, params?: any, data?: any): Promise<T> {
-        let uri = this.getUri(api, service);
-        const value = await myAxios.post<T>(uri, data, { params: params });
+        const uri = this.getUri(api, service);
+        const value = await jsonAxios.post<T>(uri, data, { params: params });
         return value.data;
+    }
+    async stream(api: string, service: string, writable: Writable, params?: any) {
+        const uri = this.getUri(api, service);
+        const value = await jsonAxios.get<Readable>(uri, {
+            params: params,
+            responseType: 'stream'
+        });
+        value.data.pipe(writable)
     }
 }
 export abstract class AbstractService {

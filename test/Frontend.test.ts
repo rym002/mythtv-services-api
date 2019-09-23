@@ -2,12 +2,47 @@ import { expect, use } from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 import 'mocha';
 import * as nock from 'nock';
-import { frontend, Frontend, NotificationType, PriorityType, VisibilityType } from '../src/';
-import { backendNock, toBool, toString } from './MockHelpers';
+import { frontend, Frontend, ApiTypes, getFrontendServices } from '../src/';
+import { backendNock, toBool, toString, toStringList } from './MockHelpers';
 
 use(chaiAsPromised);
 
 describe('Frontend', () => {
+    const requests = {
+        GetActionList: <Frontend.Request.GetActionList>{
+            Context: 'GetActionList'
+        },
+        PlayRecording: <Frontend.Request.PlayRecording>{
+            RecordedId: 1
+        },
+        PlayVideo: <Frontend.Request.PlayVideo>{
+            Id: '1'
+        },
+        SendAction: <Frontend.Request.SendAction>{
+            Action: 'SendAction'
+        },
+        SendKey: <Frontend.Request.SendKey>{
+            Key: 'SendKey'
+        },
+        SendMessage: <Frontend.Request.SendMessage>{
+            Message: 'SendMessage'
+        },
+        SendNotification: <Frontend.Request.SendNotification>{
+            Message: 'SendNotification',
+            Priority: Frontend.Request.PriorityType.high,
+            Type: Frontend.Request.NotificationType.busy,
+            Visibility: Frontend.Request.VisibilityType.video_library | Frontend.Request.VisibilityType.recordings_library
+        }
+    }
+    const responses = {
+        GetActionList: <ApiTypes.StringKeyValue>{
+            'GetActionList': 'GetActionList'
+        },
+        GetContextList: ['GetContextList', 'GetContextList2'],
+        GetStatus: <Partial<ApiTypes.FrontendStatus>>{
+            Name: 'GetStatus'
+        }
+    }
     before(() => {
         backendNock('Myth')
             .get('/GetSetting')
@@ -15,179 +50,125 @@ describe('Frontend', () => {
                 Key: 'FrontendStatusPort',
                 HostName: 'testgoodfe',
                 Default: 6547
-            }).reply(200, () => {
-                return toString('6547');
             })
-            .get('/GetSetting')
+            .reply(200, toString('6547'))
+            .get('/GetFrontends')
             .query({
-                Key: 'Theme',
-                HostName: 'testgoodfe'
-            }).reply(200, () => {
-                return toString('ATheme');
-            }).get('/GetSetting')
-            .query({
-                Key: 'FrontendStatusPort',
-                HostName: 'testbadfe',
-                Default: 6547
-            }).reply(200, () => {
-                return toString('6547');
+                OnLine: true
             })
-            .get('/GetSetting')
-            .query({
-                Key: 'Theme',
-                HostName: 'testbadfe'
-            }).reply(200, () => {
-                return toString('');
+            .reply(200, {
+                FrontendList: {
+                    Frontends: [{
+                        IP: 'testfe',
+                        Port: 123
+                    }]
+                }
             })
 
+
         nock('http://localhost:6547/Frontend')
-            .get('/GetActionList').reply(200, () => {
+            .get('/GetActionList')
+            .query(requests.GetActionList)
+            .reply(200, () => {
                 return {
                     FrontendActionList: {
-                        ActionList: {
-                            testKey: 'testValue'
-                        }
+                        ActionList: responses.GetActionList
                     }
                 }
-            }).get('/GetStatus').reply(200, () => {
-                return {
-                    FrontendStatus: {
-                        Name: 'testfe'
-                    }
-                }
-            }).post('/PlayRecording')
-            .query({
-                ChanId: 12,
-                RecordedId: 1
-            }).reply(200, () => {
-                return toBool(true);
-            }).post('/PlayVideo')
-            .query({
-                Id: 1,
-                UseBookmark: false
-            }).reply(200, () => {
-                return toBool(true);
-            }).post('/SendAction')
-            .query({
-                Action: 'Test'
-            }).reply(200, () => {
-                return toBool(true);
-            }).post('/SendKey')
-            .query({
-                Key: 'Test'
-            }).reply(200, () => {
-                return toBool(true);
-            }).post('/SendMessage')
-            .query({
-                Message: 'Test'
-            }).reply(200, () => {
-                return toBool(true);
-            }).get('/GetContextList').reply(200, () => {
-                return {
-                    StringList: [
-                        "test"
-                    ]
-                }
-            }).post('/SendKey')
-            .query({
-                Key: 'Fail'
-            }).reply(200, () => {
-                return toBool(false);
-            }).post('/SendNotification')
-            .query({
-                Message: 'Test Message',
-                Priority: 3,
-                Type: 'busy',
-                Visibility: 40
             })
+            .get('/GetStatus')
+            .reply(200, () => {
+                return {
+                    FrontendStatus: responses.GetStatus
+                }
+            })
+            .post('/PlayRecording')
+            .query(requests.PlayRecording)
             .reply(200, () => {
                 return toBool(true);
             })
+            .post('/PlayVideo')
+            .query(requests.PlayVideo)
+            .reply(200, toBool(true))
+            .post('/SendAction')
+            .query(requests.SendAction)
+            .reply(200, toBool(true))
+            .post('/SendKey')
+            .query(requests.SendKey)
+            .reply(200, toBool(true))
+            .post('/SendMessage')
+            .query(requests.SendMessage)
+            .reply(200, toBool(true))
+            .get('/GetContextList')
+            .reply(200, toStringList(responses.GetContextList))
+            .post('/SendNotification')
+            .query(requests.SendNotification)
+            .reply(200, toBool(true))
 
     })
-    it('Create Valid Frontend', async () => {
+    it('Create Frontend', async () => {
         const fe = await frontend("testgoodfe");
         expect(fe.hostname()).to.equal('testgoodfe');
-    })
-    it('Create Invalid Frontend', async () => {
-        await expect(frontend("testbadfe")).to.rejected.and.eventually.contain('Invalid');
     })
 
     it('GetActionList', async () => {
         const fe = createFrontend();
-        expect(await fe.GetActionList()).to.have.property('testKey', 'testValue');
+        await expect(fe.GetActionList(requests.GetActionList))
+            .to.eventually.eql(responses.GetActionList)
     })
 
     it('GetStatus', async () => {
         const fe = createFrontend();
-        expect(await fe.GetStatus()).to.have.property('Name', 'testfe');
+        await expect(fe.GetStatus())
+            .to.eventually.eql(responses.GetStatus)
     })
 
     it('PlayRecording', async () => {
         const fe = createFrontend();
-        expect(await fe.PlayRecording({
-            ChanId: 12,
-            RecordedId: 1
-        })).to.equal(undefined);
+        await fe.PlayRecording(requests.PlayRecording);
     })
 
     it('PlayVideo', async () => {
         const fe = createFrontend();
-        expect(await fe.PlayVideo({
-            Id: '1',
-            UseBookmark: false
-        })).to.equal(undefined);
+        await fe.PlayVideo(requests.PlayVideo);
     })
 
     it('SendAction', async () => {
         const fe = createFrontend();
-        expect(await fe.SendAction({
-            Action: 'Test'
-        })).to.equal(undefined);
+        await fe.SendAction(requests.SendAction);
     })
 
     it('SendKey', async () => {
         const fe = createFrontend();
-        expect(await fe.SendKey({
-            Key: 'Test'
-        })).to.equal(undefined);
+        await fe.SendKey(requests.SendKey);
     })
 
     it('SendMessage', async () => {
         const fe = createFrontend();
-        expect(await fe.SendMessage({
-            Message: 'Test'
-        })).to.equal(undefined);
+        await fe.SendMessage(requests.SendMessage);
     })
 
     it('GetContextList', async () => {
         const fe = createFrontend();
-        expect(await fe.GetContextList()).to.have.members(['test']);
+        await expect(fe.GetContextList())
+            .to.eventually.eql(responses.GetContextList)
     })
 
     it('SendNotification', async () => {
         const fe = createFrontend();
-
-        expect(await fe.SendNotification({
-            Message: 'Test Message',
-            Priority: PriorityType.high,
-            Type: NotificationType.busy,
-            Visibility: VisibilityType.video_library | VisibilityType.recordings_library
-        })).to.equal(undefined);
+        await fe.SendNotification(requests.SendNotification);
     })
 
-    it('Bool Fail', async () => {
-        const fe = createFrontend();
-        let isError: boolean = false;
-        await expect(fe.SendKey({
-            Key: 'Fail'
-        })).to.be.rejected
-        .to.eventually.contain('Failed')
+    it('should create frontends', async () => {
+        const frontends = await getFrontendServices(true)
+        expect(frontends).to.have.length(1)
+        expect(frontends[0].hostname()).to.eql('testfe')
     })
+
 })
 
 function createFrontend() {
-    return new Frontend({
+    return new Frontend.Service({
         hostname: 'localhost',
         port: 6547,
         protocol: 'http'
