@@ -57,11 +57,11 @@ export async function getFrontendServices(online: boolean): Promise<Frontend.Ser
         OnLine: online
     })
     const frontendPromises = frontendHosts.map(async frontendHost => {
-        return await frontend(frontendHost.Name, frontendHost.Port)
+        return await frontend(frontendHost.IP, frontendHost.Port, frontendHost.Name)
     })
     return Promise.all(frontendPromises)
 }
-export async function frontend(host: string, port?: number): Promise<Frontend.Service> {
+export async function frontend(host: string, port?: number, fehostname?: string): Promise<Frontend.Service> {
     if (!port) {
         const portValue = await masterBackend.mythService.GetSetting({
             Key: 'FrontendStatusPort',
@@ -70,5 +70,8 @@ export async function frontend(host: string, port?: number): Promise<Frontend.Se
         });
         port = Number(portValue)
     }
-    return new Frontend.Service({ hostname: host, port: port, protocol: DEFAULT_PROTOCOL });
+    if (!fehostname) {
+        fehostname = host
+    }
+    return new Frontend.Service({ hostname: host, port: port, protocol: DEFAULT_PROTOCOL }, fehostname);
 }

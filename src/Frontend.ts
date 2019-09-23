@@ -1,4 +1,4 @@
-import { AbstractService } from './Communication';
+import { AbstractService, HostConfig } from './Communication';
 import { BoolPost, StringListGet, InternalTypes } from './CommonTypes'
 import ApiTypes from 'ApiTypes';
 
@@ -12,8 +12,8 @@ export namespace Frontend {
         }
     }
     export namespace Request {
-        export interface GetActionList{
-            Context?:string
+        export interface GetActionList {
+            Context?: string
         }
         export interface SendMessage {
             Message: string
@@ -76,8 +76,10 @@ export namespace Frontend {
     }
     const api = "Frontend";
     export class Service extends AbstractService {
-
-        async GetActionList(req:Request.GetActionList): Promise<ApiTypes.StringKeyValue> {
+        constructor(hostConfig: HostConfig,private readonly _hostname:string) {
+            super(hostConfig)
+        }
+        async GetActionList(req: Request.GetActionList): Promise<ApiTypes.StringKeyValue> {
             const status = await this.serviceProvider.get<Response.FrontendActionList>(api, 'GetActionList', req);
             return status.FrontendActionList.ActionList;
         }
@@ -118,7 +120,7 @@ export namespace Frontend {
             return BoolPost(this.serviceProvider, api, 'SendNotification', req);
         }
         hostname(): string {
-            return this.serviceProvider.config.hostname;
+            return this._hostname;
         }
     }
 }

@@ -172,6 +172,6 @@ function createFrontend() {
         hostname: 'localhost',
         port: 6547,
         protocol: 'http'
-    })
+    }, 'localhost')
 
 }
