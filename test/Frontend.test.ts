@@ -21,6 +21,9 @@ describe('Frontend', () => {
         SendAction: <Frontend.Request.SendAction>{
             Action: 'SendAction'
         },
+        SendActionFalse: <Frontend.Request.SendAction>{
+            Action: 'SendActionFalse'
+        },
         SendKey: <Frontend.Request.SendKey>{
             Key: 'SendKey'
         },
@@ -93,6 +96,10 @@ describe('Frontend', () => {
             .post('/SendAction')
             .query(requests.SendAction)
             .reply(200, toBool(true))
+            .post('/SendAction')
+            .query(requests.SendActionFalse)
+            .twice()
+            .reply(200, toBool(false))
             .post('/SendKey')
             .query(requests.SendKey)
             .reply(200, toBool(true))
@@ -138,6 +145,15 @@ describe('Frontend', () => {
         await fe.SendAction(requests.SendAction);
     })
 
+    it('SendAction should fail on false', async () => {
+        const fe = createFrontend();
+        await expect(fe.SendAction(requests.SendActionFalse))
+            .to.eventually.be.rejectedWith('', 'should reject');
+    })
+    it('SendAction should not throw exception when ignoreError is true', async () => {
+        const fe = createFrontend();
+        await fe.SendAction(requests.SendActionFalse, true);
+    })
     it('SendKey', async () => {
         const fe = createFrontend();
         await fe.SendKey(requests.SendKey);

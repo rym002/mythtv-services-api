@@ -33,14 +33,14 @@ export namespace InternalTypes {
 export async function BoolPost(serviceProvider: ServiceProvider, api: string, service: string, params?: any, failOnFalse: boolean = true, data?: any): Promise<void> {
     const resp = await serviceProvider.post<InternalTypes.Bool>(api, service, params, data);
     if (failOnFalse && !resp.bool) {
-        throw 'Failed api:' + api + ' service:' + service;
+        throw new Error('Failed api:' + api + ' service:' + service);
     }
 }
 
-export async function BoolGet(serviceProvider: ServiceProvider, api: string, service: string, params?: any): Promise<void> {
+export async function BoolGet(serviceProvider: ServiceProvider, api: string, service: string, params?: any, failOnFalse: boolean = true): Promise<void> {
     const resp = await serviceProvider.get<InternalTypes.Bool>(api, service, params);
-    if (!resp.bool) {
-        throw 'Failed api:' + api + ' service:' + service;
+    if (failOnFalse && !resp.bool) {
+        throw new Error('Failed api:' + api + ' service:' + service);
     }
 }
 export async function StringGet(serviceProvider: ServiceProvider, api: string, service: string, params?: any): Promise<string> {
