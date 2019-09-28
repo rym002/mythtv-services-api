@@ -93,8 +93,8 @@ export namespace Frontend {
             return BoolPost(this.serviceProvider, api, 'SendMessage', req);
         }
 
-        async SendAction(req: Request.SendAction, ignoreError?: boolean): Promise<void> {
-            await BoolPost(this.serviceProvider, api, 'SendAction', req, ignoreError);
+        async SendAction(req: Request.SendAction, ignoreError: boolean= false): Promise<void> {
+            await BoolPost(this.serviceProvider, api, 'SendAction', req, !ignoreError);
         }
 
         async SendKey(req: Request.SendKey): Promise<void> {
