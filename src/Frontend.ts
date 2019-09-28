@@ -94,13 +94,7 @@ export namespace Frontend {
         }
 
         async SendAction(req: Request.SendAction, ignoreError?: boolean): Promise<void> {
-            try {
-                await BoolPost(this.serviceProvider, api, 'SendAction', req, ignoreError);
-            } catch (err) {
-                if (!ignoreError) {
-                    throw err;
-                }
-            }
+            await BoolPost(this.serviceProvider, api, 'SendAction', req, ignoreError);
         }
 
         async SendKey(req: Request.SendKey): Promise<void> {
