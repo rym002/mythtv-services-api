@@ -76,7 +76,7 @@ export namespace Frontend {
     }
     const api = "Frontend";
     export class Service extends AbstractService {
-        constructor(hostConfig: HostConfig,private readonly _hostname:string) {
+        constructor(hostConfig: HostConfig, private readonly _hostname: string) {
             super(hostConfig)
         }
         async GetActionList(req: Request.GetActionList): Promise<ApiTypes.StringKeyValue> {
@@ -95,7 +95,7 @@ export namespace Frontend {
 
         async SendAction(req: Request.SendAction, ignoreError?: boolean): Promise<void> {
             try {
-                await BoolPost(this.serviceProvider, api, 'SendAction', req);
+                await BoolPost(this.serviceProvider, api, 'SendAction', req, ignoreError);
             } catch (err) {
                 if (!ignoreError) {
                     throw err;

@@ -30,9 +30,9 @@ export namespace InternalTypes {
     export type RecordingKey = RecordedIdRequest | ChanIdRequest
 }
 
-export async function BoolPost(serviceProvider: ServiceProvider, api: string, service: string, params?: any, data?: any): Promise<void> {
+export async function BoolPost(serviceProvider: ServiceProvider, api: string, service: string, params?: any, failOnFalse: boolean = true, data?: any): Promise<void> {
     const resp = await serviceProvider.post<InternalTypes.Bool>(api, service, params, data);
-    if (!resp.bool) {
+    if (failOnFalse && !resp.bool) {
         throw 'Failed api:' + api + ' service:' + service;
     }
 }
@@ -54,21 +54,21 @@ export async function StringListGet(serviceProvider: ServiceProvider, api: strin
 
 export async function IntGet(serviceProvider: ServiceProvider, api: string, service: string, params?: any): Promise<number> {
     const resp = await serviceProvider.get<InternalTypes.Int>(api, service, params);
-    if (resp.int==-1){
+    if (resp.int == -1) {
         throw 'Failed api:' + api + ' service:' + service;
     }
     return resp.int;
 }
 export async function IntPost(serviceProvider: ServiceProvider, api: string, service: string, params?: any): Promise<number> {
     const resp = await serviceProvider.post<InternalTypes.Int>(api, service, params);
-    if (resp.int==-1){
+    if (resp.int == -1) {
         throw 'Failed api:' + api + ' service:' + service;
     }
     return resp.int;
 }
 export async function LongGet(serviceProvider: ServiceProvider, api: string, service: string, params?: any): Promise<number> {
     const resp = await serviceProvider.get<InternalTypes.Long>(api, service, params);
-    if (resp.long==-1){
+    if (resp.long == -1) {
         throw 'Failed api:' + api + ' service:' + service;
     }
     return resp.long;
