@@ -19,11 +19,11 @@ export namespace InternalTypes {
     export interface Long {
         long: number
     }
-    interface RecordedIdRequest {
+    export interface RecordedIdRequest {
         RecordedId: number
     }
 
-    interface ChanIdRequest {
+    export interface ChanIdRequest {
         ChanId: number
         StartTime: Date
     }

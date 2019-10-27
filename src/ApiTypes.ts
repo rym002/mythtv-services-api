@@ -71,6 +71,8 @@ namespace ApiTypes {
         Visible?: boolean
         XMLTVID?: string
         DefaultAuth?: string
+        ChannelGroups?: string
+        Inputs?: string
         Programs: Program[]
     }
     export interface Program {
@@ -129,11 +131,14 @@ namespace ApiTypes {
         StartIndex?: number
         Count?: number
     }
-    export interface DescendingListRequest extends ListRequest{
+    export interface DescendingListRequest extends ListRequest {
         Descending?: boolean
     }
-    export interface SortedListRequest extends ListRequest {
-        Sort?: string
+    export interface SortedListRequest<S extends string> extends ListRequest {
+        Sort?: S
+    }
+    export interface MultiSortedListRequest<S extends string> extends ListRequest {
+        Sort?: S[]
     }
     export interface ListResponse extends Required<ListRequest> {
         TotalAvailable: number
@@ -535,10 +540,12 @@ namespace ApiTypes {
     }
     export interface CaptureCard {
         CardId: number
+        ParentId: number
         VideoDevice: string
         AudioDevice: string
         VBIDevice: string
         CardType: string
+        DefaultInput: string
         AudioRateLimit: number
         HostName: string
         DVBSWFilter: number
@@ -559,6 +566,21 @@ namespace ApiTypes {
         Hue: number
         DiSEqCId: number
         DVBEITScan: boolean
+        InputName: string
+        SourceId: number
+        ExternalCommand: string
+        ChangerDevice: string
+        ChangerModel: string
+        TuneChannel: string
+        StartChannel: string
+        DisplayName: string
+        DishnetEit: boolean
+        RecPriority: number
+        QuickTune: boolean
+        SchedOrder: number
+        LiveTVOrder: string
+        RecLimit: string
+        SchedGroup: boolean
     }
     export interface CaptureCardList {
         CaptureCards: CaptureCard[]

@@ -60,7 +60,7 @@ describe('GuideService', () => {
     }
     before(() => {
         backendNock('Guide')
-            .get("/AddToChannelGroup")
+            .post("/AddToChannelGroup")
             .query(requests.AddToChannelGroup)
             .reply(200, toBool(true))
             .get("/GetCategoryList")
@@ -96,12 +96,12 @@ describe('GuideService', () => {
             .get("/GetStoredSearches")
             .query(requests.GetStoredSearches)
             .reply(200, toStringList(responses.GetStoredSearches))
-            .get("/RemoveFromChannelGroup")
+            .post("/RemoveFromChannelGroup")
             .query(requests.RemoveFromChannelGroup)
             .reply(200, toBool(true))
     })
     it('AddToChannelGroup', async () => {
-        masterBackend.guideService.AddToChannelGroup(requests.AddToChannelGroup)
+        await masterBackend.guideService.AddToChannelGroup(requests.AddToChannelGroup)
     })
     it('GetCategoryList', async () => {
         await expect(masterBackend.guideService.GetCategoryList())

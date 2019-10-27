@@ -4,7 +4,11 @@ import ApiTypes from './ApiTypes'
 
 export namespace VideoService {
     export namespace Request {
-        export interface GetVideoList extends ApiTypes.SortedListRequest {
+        export interface GetVideoList extends Partial<ApiTypes.SortedListRequest<'added' | 'released' | 'title' | 'director'
+            | 'studio' | 'plot' | 'rating' | 'year' | 'releasedate' | 'userrating' | 'length' | 'playcount' | 'filename'
+            | 'hash' | 'showlevel' | 'coverfile' | 'inetref' | 'collectionref' | 'homepage' | 'childid' | 'browse' | 'watched'
+            | 'playcommand' | 'category' | 'intid' | 'trailer' | 'screenshot' | 'banner' | 'fanart' | 'subtitle'
+            | 'tagline' | 'season' | 'episode' | 'host' | 'insertdate' | 'processed' | 'contenttype'>> {
             Folder?: string
         }
         export interface AddVideo {

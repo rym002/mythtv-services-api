@@ -8,6 +8,8 @@ export namespace ChannelService {
             SourceID: number;
             OnlyVisible?: boolean;
             Details?: boolean;
+            OrderByName?: boolean;
+            GroupByCallsign?: boolean;
         }
         export interface AddDBChannel {
             MplexID: number

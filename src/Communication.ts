@@ -25,7 +25,8 @@ const jsonAxios = axios.create({
         return stringify(params, {
             serializeDate: (d: Date) => {
                 return moment.utc(d).format('YYYY-MM-DDTHH:mm:ss')
-            }
+            },
+            arrayFormat: 'comma'
         })
     }
 });

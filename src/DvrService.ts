@@ -4,11 +4,13 @@ import ApiTypes from './ApiTypes'
 
 export namespace DvrService {
     export namespace Request {
-        export interface GetRecordedList extends Partial<ApiTypes.ListRequest> {
+        export interface GetRecordedList extends Partial<ApiTypes.MultiSortedListRequest<'starttime' | 'title' | 'subtitle' | 'season'
+            | 'episode' | 'category' | 'watched' | 'stars' | 'originalairdate' | 'recgroup' | 'storagegroup' | 'channum' | 'callsign' | 'name'>> {
             Descending?: boolean;
             TitleRegEx?: string;
             RecGroup?: string;
             StorageGroup?: string
+            Category?: string
         }
         export interface RecTypeToString {
             RecType: string
@@ -19,23 +21,14 @@ export namespace DvrService {
         export interface RemoveRecordSchedule {
             RecordId: number
         }
-        export interface RemoveRecorded {
-            RecordedId: number
-            ChanId: number
-            StartTime: Date
+        export type RemoveRecorded = InternalTypes.RecordingKey & {
             ForceDelete: boolean
             AllowRerecord: boolean
         }
-        export interface SetSavedBookmark {
-            RecordedId: number
-            ChanId: number
-            StartTime: Date
-            OffsetType: string
+        export type SetSavedBookmark = OffsetTypeRequest & {
             Offset: number
         }
-        export interface StopRecording {
-            RecordedId: number
-        }
+        export type StopRecording = InternalTypes.RecordedIdRequest
         export type UnDeleteRecording = InternalTypes.RecordingKey
 
         export interface UpdateRecordSchedule {
@@ -81,10 +74,7 @@ export namespace DvrService {
             AutoUserJob4: boolean
             Transcoder: number
         }
-        export interface UpdateRecordedWatchedStatus {
-            RecordedId: number
-            ChanId: number
-            StartTime: Date
+        export type UpdateRecordedWatchedStatus = InternalTypes.RecordingKey & {
             Watched: boolean
         }
         export interface RecStatusToString {
@@ -168,7 +158,7 @@ export namespace DvrService {
         }
         export interface GetExpiringList extends Partial<ApiTypes.ListRequest> {
         }
-        export interface GetOldRecordedList extends ApiTypes.SortedListRequest {
+        export interface GetOldRecordedList extends Partial<ApiTypes.SortedListRequest<'starttime' | 'title'>> {
             StartTime?: Date
             EndTime?: Date
             Title?: string
@@ -183,32 +173,18 @@ export namespace DvrService {
             & {
                 MakeOverride?: boolean
             }
-        export interface GetRecordScheduleList extends ApiTypes.SortedListRequest {
+        export interface GetRecordScheduleList extends Partial<ApiTypes.SortedListRequest<'lastrecorded' | 'nextrecording' | 'title' | 'priority' | 'type'>> {
         }
         export type GetRecorded = InternalTypes.RecordingKey
-
-        export interface GetRecordedCommBreak {
-            RecordedId: number
-            ChanId: number
-            StartTime: Date
-            OffsetType: string
-        }
-        export interface GetRecordedCutList {
-            RecordedId: number
-            ChanId: number
-            StartTime: Date
-            OffsetType: string
-        }
-        export interface GetRecordedSeek {
-            RecordedId: number
+        type OffsetType = {
             OffsetType: 'BYTES' | 'DURATION'
         }
-        export interface GetSavedBookmark {
-            RecordedId: number
-            ChanId: number
-            StartTime: Date
-            OffsetType: string
-        }
+        type OffsetTypeRequest = InternalTypes.RecordingKey & OffsetType
+        type OffsetTypeRecordedIdRequest = InternalTypes.RecordedIdRequest & OffsetType
+        export type GetRecordedCommBreak = OffsetTypeRequest
+        export type GetRecordedCutList = OffsetTypeRequest
+        export type GetRecordedSeek = OffsetTypeRecordedIdRequest
+        export type GetSavedBookmark = OffsetTypeRequest
         export interface GetTitleList {
             RecGroup: string
         }
@@ -217,14 +193,16 @@ export namespace DvrService {
             RecordId?: number
             RecStatus?: number
         }
-        export interface ReactivateRecording {
-            RecordedId: number
-        }
+        export type ReactivateRecording = InternalTypes.RecordingKey
         export interface RecStatusToDescription {
             RecStatus: number
             RecType: number
             StartTime: Date
         }
+        export interface GetProgramCategories {
+            OnlyRecorded: boolean
+        }
+        export type RecordedIdForKey = InternalTypes.ChanIdRequest
     }
     namespace Response {
         export interface EncoderList {
@@ -403,6 +381,12 @@ export namespace DvrService {
         }
         async UpdateRecordedWatchedStatus(req: Request.UpdateRecordedWatchedStatus) {
             return BoolPost(this.serviceProvider, api, 'UpdateRecordedWatchedStatus', req);
+        }
+        async GetProgramCategories(req: Request.GetProgramCategories) {
+            return StringListGet(this.serviceProvider, api, 'GetProgramCategories', req);
+        }
+        async RecordedIdForKey(req: Request.RecordedIdForKey) {
+            return IntGet(this.serviceProvider, api, 'RecordedIdForKey', req);
         }
     }
 }

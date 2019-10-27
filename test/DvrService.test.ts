@@ -202,6 +202,13 @@ describe('DvrService', () => {
         },
         UpdateRecordedWatchedStatus: <DvrService.Request.UpdateRecordedWatchedStatus>{
             RecordedId: 51
+        },
+        GetProgramCategories: <DvrService.Request.GetProgramCategories>{
+            OnlyRecorded: false
+        },
+        RecordedIdForKey: <DvrService.Request.RecordedIdForKey>{
+            ChanId: 1,
+            StartTime: new Date()
         }
     }
     const responses = {
@@ -295,6 +302,11 @@ describe('DvrService', () => {
         RecTypeToDescription: 'RecTypeToDescription',
         RecTypeToString: 'RecTypeToString',
         RecordedIdForPathname: 100,
+        GetProgramCategories: [
+            'cat1',
+            'cat2'
+        ],
+        RecordedIdForKey: 1
     }
     before(() => {
         backendNock('Dvr')
@@ -467,6 +479,15 @@ describe('DvrService', () => {
             .post('/UpdateRecordedWatchedStatus')
             .query(requests.UpdateRecordedWatchedStatus)
             .reply(200, toBool(true))
+            .get('/GetProgramCategories')
+            .query(requests.GetProgramCategories)
+            .reply(200, toStringList(responses.GetProgramCategories))
+            .get('/RecordedIdForKey')
+            .query({
+                ...requests.RecordedIdForKey,
+                ...convertDateParams(requests.RecordedIdForKey, ['StartTime'])
+            })
+            .reply(200, toInt(responses.RecordedIdForKey))
     })
 
     it('GetEncoderList', async () => {
@@ -629,5 +650,13 @@ describe('DvrService', () => {
     })
     it('UpdateRecordedWatchedStatus', async () => {
         await masterBackend.dvrService.UpdateRecordedWatchedStatus(requests.UpdateRecordedWatchedStatus)
+    })
+    it('GetProgramCategories', async () => {
+        await expect(masterBackend.dvrService.GetProgramCategories(requests.GetProgramCategories))
+            .to.eventually.eql(responses.GetProgramCategories)
+    })
+    it('RecordedIdForKey', async () => {
+        await expect(masterBackend.dvrService.RecordedIdForKey(requests.RecordedIdForKey))
+            .to.eventually.eql(responses.RecordedIdForKey)
     })
 })

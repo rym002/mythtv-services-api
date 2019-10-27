@@ -1,5 +1,5 @@
 import ApiTypes from "./ApiTypes";
-import { BoolGet, StringGet, StringListGet } from "./CommonTypes";
+import { BoolPost, StringGet, StringListGet } from "./CommonTypes";
 import { AbstractService } from "./Communication";
 
 export namespace GuideService {
@@ -26,7 +26,7 @@ export namespace GuideService {
             Details?: boolean
             ChannelGroupId?: number
         }
-        export interface GetProgramList extends ApiTypes.SortedListRequest {
+        export interface GetProgramList extends Partial<ApiTypes.SortedListRequest<'starttime' | 'title' | 'channel' | 'duration'>> {
             StartTime?: Date
             EndTime?: Date
             ChanId?: number
@@ -62,7 +62,7 @@ export namespace GuideService {
     const api = 'Guide';
     export class Service extends AbstractService {
         async AddToChannelGroup(req: Request.AddToChannelGroup) {
-            return BoolGet(this.serviceProvider, api, 'AddToChannelGroup', req)
+            return BoolPost(this.serviceProvider, api, 'AddToChannelGroup', req)
         }
         async GetCategoryList() {
             return StringListGet(this.serviceProvider, api, 'GetCategoryList')
@@ -90,7 +90,7 @@ export namespace GuideService {
             return StringListGet(this.serviceProvider, api, 'GetStoredSearches', req)
         }
         async RemoveFromChannelGroup(req: Request.RemoveFromChannelGroup) {
-            return BoolGet(this.serviceProvider, api, 'RemoveFromChannelGroup', req)
+            return BoolPost(this.serviceProvider, api, 'RemoveFromChannelGroup', req)
         }
     }
 }
