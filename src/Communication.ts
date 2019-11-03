@@ -73,31 +73,26 @@ function mythtvJsonReviver(key: any, value: any) {
     }
     return value;
 }
-export interface HostConfig {
-    hostname: string;
-    port: number;
-    protocol: string;
-}
 
 export class ServiceProvider {
-    constructor(readonly config: HostConfig) {
+    constructor(readonly baseUrl: URL, readonly api: string) {
     }
-    private getUri(api: string, service: string) {
-        return this.config.protocol + '://' + this.config.hostname + ':' + this.config.port + '/' + api + '/' + service;
+    private getUri(service: string) {
+        return new URL(this.api + '/' + service, this.baseUrl).href
     }
 
-    async get<T>(api: string, service: string, params?: any): Promise<T> {
-        const uri = this.getUri(api, service);
+    async get<T>(service: string, params?: any): Promise<T> {
+        const uri = this.getUri(service);
         const value = await jsonAxios.get<T>(uri, { params: params });
         return value.data;
     }
-    async post<T>(api: string, service: string, params?: any, data?: any): Promise<T> {
-        const uri = this.getUri(api, service);
+    async post<T>(service: string, params?: any, data?: any): Promise<T> {
+        const uri = this.getUri(service);
         const value = await jsonAxios.post<T>(uri, data, { params: params });
         return value.data;
     }
-    async stream(api: string, service: string, writable: Writable, params?: any) {
-        const uri = this.getUri(api, service);
+    async stream(service: string, writable: Writable, params?: any) {
+        const uri = this.getUri(service);
         const value = await jsonAxios.get<Readable>(uri, {
             params: params,
             responseType: 'stream'
@@ -107,7 +102,7 @@ export class ServiceProvider {
 }
 export abstract class AbstractService {
     protected readonly serviceProvider: ServiceProvider;
-    constructor(hostConfig: HostConfig) {
-        this.serviceProvider = new ServiceProvider(hostConfig);
+    constructor(baseUrl: URL, api: string) {
+        this.serviceProvider = new ServiceProvider(baseUrl, api);
     }
 }

@@ -1,4 +1,4 @@
-import { AbstractService, HostConfig } from './Communication';
+import { AbstractService } from './Communication';
 import { BoolPost, StringListGet, InternalTypes } from './CommonTypes'
 import ApiTypes from './ApiTypes';
 
@@ -74,44 +74,43 @@ export namespace Frontend {
         }
 
     }
-    const api = "Frontend";
     export class Service extends AbstractService {
-        constructor(hostConfig: HostConfig, private readonly _hostname: string) {
-            super(hostConfig)
+        constructor(baseUrl: URL, private readonly _hostname: string) {
+            super(baseUrl, 'Frontend')
         }
         async GetActionList(req: Request.GetActionList): Promise<ApiTypes.StringKeyValue> {
-            const status = await this.serviceProvider.get<Response.FrontendActionList>(api, 'GetActionList', req);
+            const status = await this.serviceProvider.get<Response.FrontendActionList>('GetActionList', req);
             return status.FrontendActionList.ActionList;
         }
 
         async GetStatus(): Promise<ApiTypes.FrontendStatus> {
-            const status = await this.serviceProvider.get<Response.FrontendStatus>(api, 'GetStatus');
+            const status = await this.serviceProvider.get<Response.FrontendStatus>('GetStatus');
             return status.FrontendStatus;
         }
 
         async SendMessage(req: Request.SendMessage): Promise<void> {
-            return BoolPost(this.serviceProvider, api, 'SendMessage', req);
+            return BoolPost(this.serviceProvider, 'SendMessage', req);
         }
 
-        async SendAction(req: Request.SendAction, ignoreError: boolean= false): Promise<void> {
-            await BoolPost(this.serviceProvider, api, 'SendAction', req, !ignoreError);
+        async SendAction(req: Request.SendAction, ignoreError: boolean = false): Promise<void> {
+            await BoolPost(this.serviceProvider, 'SendAction', req, !ignoreError);
         }
 
         async SendKey(req: Request.SendKey): Promise<void> {
-            return BoolPost(this.serviceProvider, api, 'SendKey', req);
+            return BoolPost(this.serviceProvider, 'SendKey', req);
         }
 
         async PlayRecording(req: Request.PlayRecording): Promise<void> {
-            return BoolPost(this.serviceProvider, api, 'PlayRecording', req);
+            return BoolPost(this.serviceProvider, 'PlayRecording', req);
         }
         async PlayVideo(req: Request.PlayVideo): Promise<void> {
-            return BoolPost(this.serviceProvider, api, 'PlayVideo', req);
+            return BoolPost(this.serviceProvider, 'PlayVideo', req);
         }
         async GetContextList(): Promise<string[]> {
-            return StringListGet(this.serviceProvider, api, 'GetContextList')
+            return StringListGet(this.serviceProvider, 'GetContextList')
         }
         async SendNotification(req: Request.SendNotification): Promise<void> {
-            return BoolPost(this.serviceProvider, api, 'SendNotification', req);
+            return BoolPost(this.serviceProvider, 'SendNotification', req);
         }
         hostname(): string {
             return this._hostname;

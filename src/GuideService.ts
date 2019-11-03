@@ -59,38 +59,40 @@ export namespace GuideService {
             ProgramList: ApiTypes.ProgramList
         }
     }
-    const api = 'Guide';
     export class Service extends AbstractService {
+        constructor(baseUrl: URL){
+            super(baseUrl,'Guide')
+        }
         async AddToChannelGroup(req: Request.AddToChannelGroup) {
-            return BoolPost(this.serviceProvider, api, 'AddToChannelGroup', req)
+            return BoolPost(this.serviceProvider, 'AddToChannelGroup', req)
         }
         async GetCategoryList() {
-            return StringListGet(this.serviceProvider, api, 'GetCategoryList')
+            return StringListGet(this.serviceProvider, 'GetCategoryList')
         }
         async GetChannelGroupList(req: Request.GetChannelGroupList): Promise<ApiTypes.ChannelGroup[]> {
-            const value = await this.serviceProvider.get<Response.ChannelGroupList>(api, 'GetChannelGroupList', req);
+            const value = await this.serviceProvider.get<Response.ChannelGroupList>('GetChannelGroupList', req);
             return value.ChannelGroupList.ChannelGroups;
         }
         async GetChannelIcon(req: Request.GetChannelIcon) {
-            return StringGet(this.serviceProvider, api, 'GetChannelIcon', req)
+            return StringGet(this.serviceProvider, 'GetChannelIcon', req)
         }
         async GetProgramDetails(req: Request.GetProgramDetails): Promise<ApiTypes.Program> {
-            const value = await this.serviceProvider.get<Response.Program>(api, 'GetProgramDetails', req);
+            const value = await this.serviceProvider.get<Response.Program>('GetProgramDetails', req);
             return value.Program;
         }
         async GetProgramGuide(req: Request.GetProgramGuide): Promise<ApiTypes.ProgramGuide> {
-            const value = await this.serviceProvider.get<Response.ProgramGuide>(api, 'GetProgramGuide', req);
+            const value = await this.serviceProvider.get<Response.ProgramGuide>('GetProgramGuide', req);
             return value.ProgramGuide;
         }
         async GetProgramList(req: Request.GetProgramList): Promise<ApiTypes.ProgramList> {
-            const value = await this.serviceProvider.get<Response.ProgramList>(api, 'GetProgramList', req);
+            const value = await this.serviceProvider.get<Response.ProgramList>('GetProgramList', req);
             return value.ProgramList;
         }
         async GetStoredSearches(req: Request.GetStoredSearches) {
-            return StringListGet(this.serviceProvider, api, 'GetStoredSearches', req)
+            return StringListGet(this.serviceProvider, 'GetStoredSearches', req)
         }
         async RemoveFromChannelGroup(req: Request.RemoveFromChannelGroup) {
-            return BoolPost(this.serviceProvider, api, 'RemoveFromChannelGroup', req)
+            return BoolPost(this.serviceProvider, 'RemoveFromChannelGroup', req)
         }
     }
 }

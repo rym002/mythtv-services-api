@@ -133,107 +133,109 @@ export namespace MythService {
     }
 
 
-    const api = 'Myth';
     export class Service extends AbstractService {
+        constructor(baseUrl: URL) {
+            super(baseUrl, 'Myth')
+        }
 
         async GetHostName(): Promise<string> {
-            return StringGet(this.serviceProvider, api, 'GetHostName');
+            return StringGet(this.serviceProvider, 'GetHostName');
         }
 
         async GetHosts(): Promise<string[]> {
-            return await StringListGet(this.serviceProvider, api, 'GetHosts');
+            return await StringListGet(this.serviceProvider, 'GetHosts');
         }
 
         async GetSetting(req: Request.GetSetting): Promise<string> {
-            return StringGet(this.serviceProvider, api, 'GetSetting', req);
+            return StringGet(this.serviceProvider, 'GetSetting', req);
         }
         async GetFrontends(req: Partial<Request.GetFrontends>): Promise<ApiTypes.Frontend[]> {
-            const value = await this.serviceProvider.get<Response.FrontendList>(api, 'GetFrontends', req)
+            const value = await this.serviceProvider.get<Response.FrontendList>('GetFrontends', req)
             return value.FrontendList.Frontends
         }
 
         async AddStorageGroupDir(req: Request.AddStorageGroupDir): Promise<void> {
-            return BoolPost(this.serviceProvider, api, 'AddStorageGroupDir', req);
+            return BoolPost(this.serviceProvider, 'AddStorageGroupDir', req);
         }
 
         async BackupDatabase() {
-            return BoolPost(this.serviceProvider, api, 'BackupDatabase');
+            return BoolPost(this.serviceProvider, 'BackupDatabase');
         }
         async ChangePassword(req: Request.ChangePassword) {
-            return BoolPost(this.serviceProvider, api, 'ChangePassword', req);
+            return BoolPost(this.serviceProvider, 'ChangePassword', req);
         }
         async CheckDatabase(req: Request.CheckDatabase) {
-            return BoolPost(this.serviceProvider, api, 'CheckDatabase', req);
+            return BoolPost(this.serviceProvider, 'CheckDatabase', req);
         }
         async GetBackendInfo(): Promise<ApiTypes.BackendInfo> {
-            const value = await this.serviceProvider.get<Response.BackendInfo>(api, 'GetBackendInfo')
+            const value = await this.serviceProvider.get<Response.BackendInfo>('GetBackendInfo')
             return value.BackendInfo
         }
         async GetConnectionInfo(req: Request.GetConnectionInfo): Promise<ApiTypes.ConnectionInfo> {
-            const value = await this.serviceProvider.get<Response.ConnectionInfo>(api, 'GetConnectionInfo', req)
+            const value = await this.serviceProvider.get<Response.ConnectionInfo>('GetConnectionInfo', req)
             return value.ConnectionInfo
         }
         async GetFormatDate(req: Request.GetFormatDate) {
-            return StringGet(this.serviceProvider, api, 'GetFormatDate', req);
+            return StringGet(this.serviceProvider, 'GetFormatDate', req);
         }
         async GetFormatDateTime(req: Request.GetFormatDateTime) {
-            return StringGet(this.serviceProvider, api, 'GetFormatDateTime', req);
+            return StringGet(this.serviceProvider, 'GetFormatDateTime', req);
         }
         async GetFormatTime(req: Request.GetFormatTime) {
-            return StringGet(this.serviceProvider, api, 'GetFormatTime', req);
+            return StringGet(this.serviceProvider, 'GetFormatTime', req);
         }
         async GetKeys() {
-            return StringListGet(this.serviceProvider, api, 'GetKeys');
+            return StringListGet(this.serviceProvider, 'GetKeys');
         }
         async GetLogs(req: Partial<Request.GetLogs>): Promise<ApiTypes.LogMessageList> {
-            const value = await this.serviceProvider.get<Response.LogMessageList>(api, 'GetLogs', req)
+            const value = await this.serviceProvider.get<Response.LogMessageList>('GetLogs', req)
             return value.LogMessageList
         }
         async GetSettingList(req: Partial<Request.GetSettingList>): Promise<ApiTypes.SettingList> {
-            const value = await this.serviceProvider.get<Response.SettingList>(api, 'GetSettingList', req)
+            const value = await this.serviceProvider.get<Response.SettingList>('GetSettingList', req)
             return value.SettingList
         }
         async GetStorageGroupDirs(req: Partial<Request.GetStorageGroupDirs>): Promise<ApiTypes.StorageGroupDir[]> {
-            const value = await this.serviceProvider.get<Response.StorageGroupDirList>(api, 'GetStorageGroupDirs', req)
+            const value = await this.serviceProvider.get<Response.StorageGroupDirList>('GetStorageGroupDirs', req)
             return value.StorageGroupDirList.StorageGroupDirs
         }
         async GetTimeZone(): Promise<ApiTypes.TimeZoneInfo> {
-            const value = await this.serviceProvider.get<Response.TimeZoneInfo>(api, 'GetTimeZone')
+            const value = await this.serviceProvider.get<Response.TimeZoneInfo>('GetTimeZone')
             return value.TimeZoneInfo
         }
         async ParseISODateString(req: Request.ParseISODateString): Promise<Date> {
-            const value = await this.serviceProvider.get<Response.DateTime>(api, 'ParseISODateString', req)
+            const value = await this.serviceProvider.get<Response.DateTime>('ParseISODateString', req)
             return value.DateTime
         }
         async ProfileText() {
-            return StringGet(this.serviceProvider, api, 'ProfileText');
+            return StringGet(this.serviceProvider, 'ProfileText');
         }
         async ProfileURL() {
-            return StringGet(this.serviceProvider, api, 'ProfileURL');
+            return StringGet(this.serviceProvider, 'ProfileURL');
         }
         async ProfileUpdated() {
-            return StringGet(this.serviceProvider, api, 'ProfileUpdated');
+            return StringGet(this.serviceProvider, 'ProfileUpdated');
         }
         async ProfileDelete() {
-            return BoolPost(this.serviceProvider, api, 'ProfileDelete');
+            return BoolPost(this.serviceProvider, 'ProfileDelete');
         }
         async ProfileSubmit() {
-            return BoolPost(this.serviceProvider, api, 'ProfileSubmit');
+            return BoolPost(this.serviceProvider, 'ProfileSubmit');
         }
         async PutSetting(req: Request.PutSetting) {
-            return BoolPost(this.serviceProvider, api, 'PutSetting', req);
+            return BoolPost(this.serviceProvider, 'PutSetting', req);
         }
         async RemoveStorageGroupDir(req: Request.RemoveStorageGroupDir) {
-            return BoolPost(this.serviceProvider, api, 'RemoveStorageGroupDir', req);
+            return BoolPost(this.serviceProvider, 'RemoveStorageGroupDir', req);
         }
         async SendMessage(req: Request.SendMessage) {
-            return BoolPost(this.serviceProvider, api, 'SendMessage', req);
+            return BoolPost(this.serviceProvider, 'SendMessage', req);
         }
         async SendNotification(req: Request.SendNotification) {
-            return BoolPost(this.serviceProvider, api, 'SendNotification', req);
+            return BoolPost(this.serviceProvider, 'SendNotification', req);
         }
         async TestDBSettings(req: Request.TestDBSettings) {
-            return BoolPost(this.serviceProvider, api, 'TestDBSettings', req);
+            return BoolPost(this.serviceProvider, 'TestDBSettings', req);
         }
     }
 }

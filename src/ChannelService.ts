@@ -5,7 +5,7 @@ export namespace ChannelService {
 
     export namespace Request {
         export interface GetChannelInfoList extends Partial<ApiTypes.ListRequest> {
-            SourceID: number;
+            SourceID?: number;
             OnlyVisible?: boolean;
             Details?: boolean;
             OrderByName?: boolean;
@@ -127,61 +127,63 @@ export namespace ChannelService {
     }
 
 
-    const api = 'Channel';
     export class Service extends AbstractService {
+        constructor(baseUrl: URL) {
+            super(baseUrl, 'Channel')
+        }
         async GetChannelInfo(req: Request.GetChannelInfo): Promise<ApiTypes.ChannelInfo> {
-            const value = await this.serviceProvider.get<Response.ChannelInfo>(api, 'GetChannelInfo', req);
+            const value = await this.serviceProvider.get<Response.ChannelInfo>('GetChannelInfo', req);
             return value.ChannelInfo;
         }
 
         async GetVideoSourceList(): Promise<ApiTypes.VideoSourceList> {
-            const value = await this.serviceProvider.get<Response.VideoSourceList>(api, 'GetVideoSourceList');
+            const value = await this.serviceProvider.get<Response.VideoSourceList>('GetVideoSourceList');
             return value.VideoSourceList;
         }
 
         async GetChannelInfoList(req: Request.GetChannelInfoList): Promise<ApiTypes.ChannelInfoList> {
-            const value = await this.serviceProvider.get<Response.ChannelInfoList>(api, 'GetChannelInfoList', req);
+            const value = await this.serviceProvider.get<Response.ChannelInfoList>('GetChannelInfoList', req);
             return value.ChannelInfoList;
         }
         async AddDBChannel(req: Request.AddDBChannel) {
-            return BoolPost(this.serviceProvider, api, 'AddDBChannel', req);
+            return BoolPost(this.serviceProvider, 'AddDBChannel', req);
         }
         async AddVideoSource(req: Request.AddVideoSource) {
-            return IntPost(this.serviceProvider, api, 'AddVideoSource', req);
+            return IntPost(this.serviceProvider, 'AddVideoSource', req);
         }
         async FetchChannelsFromSource(req: Request.FetchChannelsFromSource) {
-            return IntGet(this.serviceProvider, api, 'FetchChannelsFromSource', req);
+            return IntGet(this.serviceProvider, 'FetchChannelsFromSource', req);
         }
         async GetDDLineupList(req: Request.GetDDLineupList): Promise<ApiTypes.Lineup[]> {
-            const value = await this.serviceProvider.get<Response.LineupList>(api, 'GetDDLineupList', req);
+            const value = await this.serviceProvider.get<Response.LineupList>('GetDDLineupList', req);
             return value.LineupList.Lineups;
         }
         async GetVideoMultiplex(req: Request.GetVideoMultiplex): Promise<ApiTypes.VideoMultiplex> {
-            const value = await this.serviceProvider.get<Response.VideoMultiplex>(api, 'GetVideoMultiplex', req);
+            const value = await this.serviceProvider.get<Response.VideoMultiplex>('GetVideoMultiplex', req);
             return value.VideoMultiplex;
         }
         async GetVideoMultiplexList(req: Partial<Request.GetVideoMultiplexList>): Promise<ApiTypes.VideoMultiplexList> {
-            const value = await this.serviceProvider.get<Response.VideoMultiplexList>(api, 'GetVideoMultiplexList', req);
+            const value = await this.serviceProvider.get<Response.VideoMultiplexList>('GetVideoMultiplexList', req);
             return value.VideoMultiplexList;
         }
         async GetVideoSource(req: Request.GetVideoSource): Promise<ApiTypes.VideoSource> {
-            const value = await this.serviceProvider.get<Response.VideoSource>(api, 'GetVideoSource', req);
+            const value = await this.serviceProvider.get<Response.VideoSource>('GetVideoSource', req);
             return value.VideoSource;
         }
         async GetXMLTVIdList(req: Request.GetXMLTVIdList) {
-            return StringListGet(this.serviceProvider, api, 'GetXMLTVIdList', req);
+            return StringListGet(this.serviceProvider, 'GetXMLTVIdList', req);
         }
         async RemoveDBChannel(req: Request.RemoveDBChannel) {
-            return BoolPost(this.serviceProvider, api, 'RemoveDBChannel', req);
+            return BoolPost(this.serviceProvider, 'RemoveDBChannel', req);
         }
         async RemoveVideoSource(req: Request.RemoveVideoSource) {
-            return BoolPost(this.serviceProvider, api, 'RemoveVideoSource', req);
+            return BoolPost(this.serviceProvider, 'RemoveVideoSource', req);
         }
         async UpdateDBChannel(req: Request.UpdateDBChannel) {
-            return BoolPost(this.serviceProvider, api, 'UpdateDBChannel', req);
+            return BoolPost(this.serviceProvider, 'UpdateDBChannel', req);
         }
         async UpdateVideoSource(req: Request.UpdateVideoSource) {
-            return BoolPost(this.serviceProvider, api, 'UpdateVideoSource', req);
+            return BoolPost(this.serviceProvider, 'UpdateVideoSource', req);
         }
     }
 }

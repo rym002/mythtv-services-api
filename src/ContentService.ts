@@ -103,80 +103,82 @@ export namespace ContentService {
             ArtworkInfoList: ApiTypes.ArtworkInfoList
         }
     }
-    const api = 'Content';
     export class Service extends AbstractService {
+        constructor(baseUrl: URL){
+            super(baseUrl,'Content')
+        }
         async AddLiveStream(req: Request.AddLiveStream): Promise<ApiTypes.LiveStreamInfo> {
-            const value = await this.serviceProvider.get<Response.LiveStreamInfo>(api, 'AddLiveStream', req);
+            const value = await this.serviceProvider.get<Response.LiveStreamInfo>('AddLiveStream', req);
             return value.LiveStreamInfo;
         }
         async AddRecordingLiveStream(req: Request.AddRecordingLiveStream): Promise<ApiTypes.LiveStreamInfo> {
-            const value = await this.serviceProvider.get<Response.LiveStreamInfo>(api, 'AddRecordingLiveStream', req);
+            const value = await this.serviceProvider.get<Response.LiveStreamInfo>('AddRecordingLiveStream', req);
             return value.LiveStreamInfo;
         }
         async AddVideoLiveStream(req: Request.AddVideoLiveStream): Promise<ApiTypes.LiveStreamInfo> {
-            const value = await this.serviceProvider.get<Response.LiveStreamInfo>(api, 'AddVideoLiveStream', req);
+            const value = await this.serviceProvider.get<Response.LiveStreamInfo>('AddVideoLiveStream', req);
             return value.LiveStreamInfo;
         }
         async DownloadFile(req: Request.DownloadFile) {
-            return BoolPost(this.serviceProvider, api, 'DownloadFile', req);
+            return BoolPost(this.serviceProvider, 'DownloadFile', req);
         }
         async GetAlbumArt(req: Request.GetAlbumArt, writable: Writable) {
-            await this.serviceProvider.stream(api, 'GetAlbumArt', writable, req);
+            await this.serviceProvider.stream('GetAlbumArt', writable, req);
         }
         async GetDirList(req: Request.GetDirList) {
-            return StringListGet(this.serviceProvider, api, 'GetDirList', req);
+            return StringListGet(this.serviceProvider, 'GetDirList', req);
         }
         async GetFile(req: Request.GetFile, writable: Writable) {
-            await this.serviceProvider.stream(api, 'GetFile', writable, req);
+            await this.serviceProvider.stream('GetFile', writable, req);
         }
         async GetFileList(req: Request.GetFileList) {
-            return StringListGet(this.serviceProvider, api, 'GetFileList', req);
+            return StringListGet(this.serviceProvider, 'GetFileList', req);
         }
         async GetHash(req: Request.GetHash) {
-            return StringGet(this.serviceProvider, api, 'GetHash', req);
+            return StringGet(this.serviceProvider, 'GetHash', req);
         }
         async GetImageFile(req: Request.GetImageFile, writable: Writable) {
-            await this.serviceProvider.stream(api, 'GetImageFile', writable, req);
+            await this.serviceProvider.stream('GetImageFile', writable, req);
         }
         async GetLiveStream(req: Request.GetLiveStream): Promise<ApiTypes.LiveStreamInfo> {
-            const value = await this.serviceProvider.get<Response.LiveStreamInfo>(api, 'GetLiveStream', req);
+            const value = await this.serviceProvider.get<Response.LiveStreamInfo>('GetLiveStream', req);
             return value.LiveStreamInfo;
         }
         async GetLiveStreamList(req: Request.GetLiveStreamList): Promise<ApiTypes.LiveStreamInfo[]> {
-            const value = await this.serviceProvider.get<Response.GetLiveStreamList>(api, 'GetLiveStreamList', req);
+            const value = await this.serviceProvider.get<Response.GetLiveStreamList>('GetLiveStreamList', req);
             return value.LiveStreamInfoList.LiveStreamInfos;
         }
         async GetMusic(req: Request.GetMusic, writable: Writable) {
-            await this.serviceProvider.stream(api, 'GetMusic', writable, req);
+            await this.serviceProvider.stream('GetMusic', writable, req);
         }
         async GetPreviewImage(req: Request.GetPreviewImage, writable: Writable) {
-            await this.serviceProvider.stream(api, 'GetPreviewImage', writable, req);
+            await this.serviceProvider.stream('GetPreviewImage', writable, req);
         }
         async GetProgramArtworkList(req: Request.GetProgramArtworkList): Promise<ApiTypes.ArtworkInfo[]> {
-            const value = await this.serviceProvider.get<Response.ArtworkInfoList>(api, 'GetProgramArtworkList', req);
+            const value = await this.serviceProvider.get<Response.ArtworkInfoList>('GetProgramArtworkList', req);
             return value.ArtworkInfoList.ArtworkInfos;
         }
         async GetRecording(req: Request.GetRecording, writable: Writable) {
-            await this.serviceProvider.stream(api, 'GetRecording', writable, req);
+            await this.serviceProvider.stream('GetRecording', writable, req);
         }
         async GetRecordingArtwork(req: Request.GetRecordingArtwork, writable: Writable) {
-            await this.serviceProvider.stream(api, 'GetRecordingArtwork', writable, req);
+            await this.serviceProvider.stream('GetRecordingArtwork', writable, req);
         }
         async GetRecordingArtworkList(req: Request.GetRecordingArtworkList): Promise<ApiTypes.ArtworkInfo[]> {
-            const value = await this.serviceProvider.get<Response.ArtworkInfoList>(api, 'GetRecordingArtworkList', req);
+            const value = await this.serviceProvider.get<Response.ArtworkInfoList>('GetRecordingArtworkList', req);
             return value.ArtworkInfoList.ArtworkInfos;
         }
         async GetVideo(req: Request.GetVideo, writable: Writable) {
-            await this.serviceProvider.stream(api, 'GetVideo', writable, req);
+            await this.serviceProvider.stream('GetVideo', writable, req);
         }
         async GetVideoArtwork(req: Request.GetVideoArtwork, writable: Writable) {
-            await this.serviceProvider.stream(api, 'GetVideoArtwork', writable, req);
+            await this.serviceProvider.stream('GetVideoArtwork', writable, req);
         }
         async RemoveLiveStream(req: Request.RemoveLiveStream) {
-            return BoolGet(this.serviceProvider, api, 'RemoveLiveStream', req);
+            return BoolGet(this.serviceProvider, 'RemoveLiveStream', req);
         }
         async StopLiveStream(req: Request.StopLiveStream): Promise<ApiTypes.LiveStreamInfo> {
-            const value = await this.serviceProvider.get<Response.LiveStreamInfo>(api, 'StopLiveStream', req);
+            const value = await this.serviceProvider.get<Response.LiveStreamInfo>('StopLiveStream', req);
             return value.LiveStreamInfo;
         }
     }

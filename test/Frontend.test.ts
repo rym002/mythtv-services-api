@@ -184,10 +184,5 @@ describe('Frontend', () => {
 })
 
 function createFrontend() {
-    return new Frontend.Service({
-        hostname: 'localhost',
-        port: 6547,
-        protocol: 'http'
-    }, 'localhost')
-
+    return new Frontend.Service(new URL('http://localhost:6547'), 'localhost')
 }

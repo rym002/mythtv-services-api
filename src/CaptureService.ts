@@ -84,33 +84,35 @@ export namespace CaptureService {
         }
     }
 
-    const api = 'Capture';
     export class Service extends AbstractService {
+        constructor(baseUrl: URL) {
+            super(baseUrl, 'Capture')
+        }
         async AddCaptureCard(req: Request.AddCaptureCard) {
-            return IntPost(this.serviceProvider, api, 'AddCaptureCard', req);
+            return IntPost(this.serviceProvider, 'AddCaptureCard', req);
         }
         async AddCardInput(req: Request.AddCardInput) {
-            return IntPost(this.serviceProvider, api, 'AddCardInput', req);
+            return IntPost(this.serviceProvider, 'AddCardInput', req);
         }
         async GetCaptureCard(req: Request.GetCaptureCard): Promise<ApiTypes.CaptureCard> {
-            const value = await this.serviceProvider.get<Response.CaptureCard>(api, 'GetCaptureCard', req);
+            const value = await this.serviceProvider.get<Response.CaptureCard>('GetCaptureCard', req);
             return value.CaptureCard;
         }
         async GetCaptureCardList(req: Request.GetCaptureCardList): Promise<ApiTypes.CaptureCard[]> {
-            const value = await this.serviceProvider.get<Response.CaptureCardList>(api, 'GetCaptureCardList', req);
+            const value = await this.serviceProvider.get<Response.CaptureCardList>('GetCaptureCardList', req);
             return value.CaptureCardList.CaptureCards;
         }
         async RemoveCaptureCard(req: Request.RemoveCaptureCard) {
-            return BoolPost(this.serviceProvider, api, 'RemoveCaptureCard', req);
+            return BoolPost(this.serviceProvider, 'RemoveCaptureCard', req);
         }
         async RemoveCardInput(req: Request.RemoveCardInput) {
-            return BoolPost(this.serviceProvider, api, 'RemoveCardInput', req);
+            return BoolPost(this.serviceProvider, 'RemoveCardInput', req);
         }
         async UpdateCaptureCard(req: Request.UpdateCaptureCard) {
-            return BoolPost(this.serviceProvider, api, 'UpdateCaptureCard', req);
+            return BoolPost(this.serviceProvider, 'UpdateCaptureCard', req);
         }
         async UpdateCardInput(req: Request.UpdateCardInput) {
-            return BoolPost(this.serviceProvider, api, 'UpdateCardInput', req);
+            return BoolPost(this.serviceProvider, 'UpdateCardInput', req);
         }
     }
 }

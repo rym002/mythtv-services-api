@@ -1,22 +1,21 @@
+import { CaptureService } from './CaptureService';
 import { ChannelService } from './ChannelService';
-import { HostConfig } from './Communication';
+import { ContentService } from './ContentService';
 import { DvrService } from './DvrService';
 import { Frontend } from './Frontend';
+import { GuideService } from './GuideService';
 import { MythService } from './MythService';
 import { VideoService } from './VideoService';
-import { CaptureService } from './CaptureService'
-import { ContentService } from './ContentService'
-import { GuideService } from './GuideService'
 
-export { default as ApiTypes } from './ApiTypes'
+export { default as ApiTypes } from './ApiTypes';
+export * from './CaptureService';
 export * from './ChannelService';
 export * from './Communication';
+export * from './ContentService';
 export * from './DvrService';
 export * from './Frontend';
+export * from './GuideService';
 export * from './MythService';
-export * from './CaptureService'
-export * from './ContentService'
-export * from './GuideService'
 
 const DEFAULT_FE_PORT = '6547';
 const DEFAULT_BE_PORT = 6544;
@@ -31,25 +30,21 @@ export class BackendServices {
     readonly captureService: CaptureService.Service;
     readonly contentService: ContentService.Service;
     readonly guideService: GuideService.Service;
-    constructor(hc: HostConfig) {
-        this.mythService = new MythService.Service(hc);
-        this.dvrService = new DvrService.Service(hc);
-        this.channelService = new ChannelService.Service(hc);
-        this.videoService = new VideoService.Service(hc)
-        this.captureService = new CaptureService.Service(hc)
-        this.contentService = new ContentService.Service(hc)
-        this.guideService = new GuideService.Service(hc)
+    constructor(baseUrl: URL) {
+        this.mythService = new MythService.Service(baseUrl);
+        this.dvrService = new DvrService.Service(baseUrl);
+        this.channelService = new ChannelService.Service(baseUrl);
+        this.videoService = new VideoService.Service(baseUrl)
+        this.captureService = new CaptureService.Service(baseUrl)
+        this.contentService = new ContentService.Service(baseUrl)
+        this.guideService = new GuideService.Service(baseUrl)
     }
 }
 
-export let masterBackend = new BackendServices({
-    hostname: DEFAULT_BACKEND_HOST,
-    port: DEFAULT_BE_PORT,
-    protocol: DEFAULT_PROTOCOL
-});
+export let masterBackend = new BackendServices(new URL(DEFAULT_PROTOCOL + '://' + DEFAULT_BACKEND_HOST + ':' + DEFAULT_BE_PORT))
 
-export function masterBackendSettings(hc: HostConfig) {
-    masterBackend = new BackendServices(hc);
+export function masterBackendSettings(baseUrl: URL) {
+    masterBackend = new BackendServices(baseUrl);
 }
 
 export async function getFrontendServices(online: boolean): Promise<Frontend.Service[]> {
@@ -73,5 +68,5 @@ export async function frontend(host: string, port?: number, fehostname?: string)
     if (!fehostname) {
         fehostname = host
     }
-    return new Frontend.Service({ hostname: host, port: port, protocol: DEFAULT_PROTOCOL }, fehostname);
+    return new Frontend.Service(new URL(DEFAULT_PROTOCOL + '://' + host + ':' + port), fehostname);
 }

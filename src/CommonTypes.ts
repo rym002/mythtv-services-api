@@ -30,46 +30,46 @@ export namespace InternalTypes {
     export type RecordingKey = RecordedIdRequest | ChanIdRequest
 }
 
-export async function BoolPost(serviceProvider: ServiceProvider, api: string, service: string, params?: any, failOnFalse: boolean = true, data?: any): Promise<void> {
-    const resp = await serviceProvider.post<InternalTypes.Bool>(api, service, params, data);
+export async function BoolPost(serviceProvider: ServiceProvider, service: string, params?: any, failOnFalse: boolean = true, data?: any): Promise<void> {
+    const resp = await serviceProvider.post<InternalTypes.Bool>(service, params, data);
     if (failOnFalse && !resp.bool) {
-        throw new Error('Failed api:' + api + ' service:' + service);
+        throw new Error('Failed api:' + serviceProvider.api + ' service:' + service);
     }
 }
 
-export async function BoolGet(serviceProvider: ServiceProvider, api: string, service: string, params?: any, failOnFalse: boolean = true): Promise<void> {
-    const resp = await serviceProvider.get<InternalTypes.Bool>(api, service, params);
+export async function BoolGet(serviceProvider: ServiceProvider, service: string, params?: any, failOnFalse: boolean = true): Promise<void> {
+    const resp = await serviceProvider.get<InternalTypes.Bool>(service, params);
     if (failOnFalse && !resp.bool) {
-        throw new Error('Failed api:' + api + ' service:' + service);
+        throw new Error('Failed api:' + serviceProvider.api + ' service:' + service);
     }
 }
-export async function StringGet(serviceProvider: ServiceProvider, api: string, service: string, params?: any): Promise<string> {
-    const resp = await serviceProvider.get<InternalTypes.String>(api, service, params);
+export async function StringGet(serviceProvider: ServiceProvider, service: string, params?: any): Promise<string> {
+    const resp = await serviceProvider.get<InternalTypes.String>(service, params);
     return resp.String;
 }
-export async function StringListGet(serviceProvider: ServiceProvider, api: string, service: string, params?: any): Promise<string[]> {
-    const resp = await serviceProvider.get<InternalTypes.StringList>(api, service, params);
+export async function StringListGet(serviceProvider: ServiceProvider, service: string, params?: any): Promise<string[]> {
+    const resp = await serviceProvider.get<InternalTypes.StringList>(service, params);
     return resp.StringList;
 }
 
-export async function IntGet(serviceProvider: ServiceProvider, api: string, service: string, params?: any): Promise<number> {
-    const resp = await serviceProvider.get<InternalTypes.Int>(api, service, params);
+export async function IntGet(serviceProvider: ServiceProvider, service: string, params?: any): Promise<number> {
+    const resp = await serviceProvider.get<InternalTypes.Int>(service, params);
     if (resp.int == -1) {
-        throw 'Failed api:' + api + ' service:' + service;
+        throw 'Failed api:' + serviceProvider.api + ' service:' + service;
     }
     return resp.int;
 }
-export async function IntPost(serviceProvider: ServiceProvider, api: string, service: string, params?: any): Promise<number> {
-    const resp = await serviceProvider.post<InternalTypes.Int>(api, service, params);
+export async function IntPost(serviceProvider: ServiceProvider, service: string, params?: any): Promise<number> {
+    const resp = await serviceProvider.post<InternalTypes.Int>(service, params);
     if (resp.int == -1) {
-        throw 'Failed api:' + api + ' service:' + service;
+        throw 'Failed api:' + serviceProvider.api + ' service:' + service;
     }
     return resp.int;
 }
-export async function LongGet(serviceProvider: ServiceProvider, api: string, service: string, params?: any): Promise<number> {
-    const resp = await serviceProvider.get<InternalTypes.Long>(api, service, params);
+export async function LongGet(serviceProvider: ServiceProvider, service: string, params?: any): Promise<number> {
+    const resp = await serviceProvider.get<InternalTypes.Long>(service, params);
     if (resp.long == -1) {
-        throw 'Failed api:' + api + ' service:' + service;
+        throw 'Failed api:' + serviceProvider.api + ' service:' + service;
     }
     return resp.long;
 }

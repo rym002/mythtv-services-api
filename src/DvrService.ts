@@ -234,159 +234,161 @@ export namespace DvrService {
             TitleInfoList: ApiTypes.TitleInfoList
         }
     }
-    const api = 'Dvr';
     export class Service extends AbstractService {
+        constructor(baseUrl: URL) {
+            super(baseUrl, 'Dvr')
+        }
         async GetEncoderList(): Promise<ApiTypes.Encoder[]> {
-            const ret = await this.serviceProvider.get<Response.EncoderList>(api, 'GetEncoderList');
+            const ret = await this.serviceProvider.get<Response.EncoderList>('GetEncoderList');
             return ret.EncoderList.Encoders;
         }
 
         async GetRecordedList(req: Request.GetRecordedList): Promise<ApiTypes.ProgramList> {
-            const ret = await this.serviceProvider.get<Response.ProgramList>(api, 'GetRecordedList', req);
+            const ret = await this.serviceProvider.get<Response.ProgramList>('GetRecordedList', req);
             return ret.ProgramList;
         }
 
         async GetUpcomingList(req: Request.GetUpcomingList): Promise<ApiTypes.ProgramList> {
-            const ret = await this.serviceProvider.get<Response.ProgramList>(api, 'GetUpcomingList', req);
+            const ret = await this.serviceProvider.get<Response.ProgramList>('GetUpcomingList', req);
             return ret.ProgramList;
         }
         async AddDontRecordSchedule(req: Request.AddDontRecordSchedule) {
-            return BoolGet(this.serviceProvider, api, 'AddDontRecordSchedule', req);
+            return BoolGet(this.serviceProvider, 'AddDontRecordSchedule', req);
         }
         async AddRecordSchedule(req: Request.AddRecordSchedule) {
-            return IntPost(this.serviceProvider, api, 'AddRecordSchedule', req);
+            return IntPost(this.serviceProvider, 'AddRecordSchedule', req);
         }
         async DeleteRecording(req: Request.DeleteRecording) {
-            return BoolPost(this.serviceProvider, api, 'DeleteRecording', req);
+            return BoolPost(this.serviceProvider, 'DeleteRecording', req);
         }
         async DisableRecordSchedule(req: Request.DisableRecordSchedule) {
-            return BoolPost(this.serviceProvider, api, 'DisableRecordSchedule', req);
+            return BoolPost(this.serviceProvider, 'DisableRecordSchedule', req);
         }
         async DupInToDescription(req: Request.DupInToDescription) {
-            return StringGet(this.serviceProvider, api, 'DupInToDescription', req);
+            return StringGet(this.serviceProvider, 'DupInToDescription', req);
         }
         async DupInToString(req: Request.DupInToString) {
-            return StringGet(this.serviceProvider, api, 'DupInToString', req);
+            return StringGet(this.serviceProvider, 'DupInToString', req);
         }
         async DupMethodToDescription(req: Request.DupMethodToDescription) {
-            return StringGet(this.serviceProvider, api, 'DupMethodToDescription', req);
+            return StringGet(this.serviceProvider, 'DupMethodToDescription', req);
         }
         async DupMethodToString(req: Request.DupMethodToString) {
-            return StringGet(this.serviceProvider, api, 'DupMethodToString', req);
+            return StringGet(this.serviceProvider, 'DupMethodToString', req);
         }
         async EnableRecordSchedule(req: Request.EnableRecordSchedule) {
-            return BoolPost(this.serviceProvider, api, 'EnableRecordSchedule', req);
+            return BoolPost(this.serviceProvider, 'EnableRecordSchedule', req);
         }
         async GetConflictList(req: Request.GetConflictList): Promise<ApiTypes.ProgramList> {
-            const ret = await this.serviceProvider.get<Response.ProgramList>(api, 'GetConflictList', req);
+            const ret = await this.serviceProvider.get<Response.ProgramList>('GetConflictList', req);
             return ret.ProgramList;
         }
         async GetExpiringList(req: Request.GetExpiringList): Promise<ApiTypes.ProgramList> {
-            const ret = await this.serviceProvider.get<Response.ProgramList>(api, 'GetExpiringList', req);
+            const ret = await this.serviceProvider.get<Response.ProgramList>('GetExpiringList', req);
             return ret.ProgramList;
         }
         async GetInputList(): Promise<ApiTypes.Input[]> {
-            const ret = await this.serviceProvider.get<Response.InputList>(api, 'GetInputList');
+            const ret = await this.serviceProvider.get<Response.InputList>('GetInputList');
             return ret.InputList.Inputs;
         }
         async GetOldRecordedList(req: Request.GetOldRecordedList): Promise<ApiTypes.ProgramList> {
-            const ret = await this.serviceProvider.get<Response.ProgramList>(api, 'GetOldRecordedList', req);
+            const ret = await this.serviceProvider.get<Response.ProgramList>('GetOldRecordedList', req);
             return ret.ProgramList;
         }
         async GetPlayGroupList() {
-            return StringListGet(this.serviceProvider, api, 'GetPlayGroupList');
+            return StringListGet(this.serviceProvider, 'GetPlayGroupList');
         }
         async GetRecGroupList() {
-            return StringListGet(this.serviceProvider, api, 'GetRecGroupList');
+            return StringListGet(this.serviceProvider, 'GetRecGroupList');
         }
         async GetRecRuleFilterList(): Promise<ApiTypes.RecRuleFilterList> {
-            const ret = await this.serviceProvider.get<Response.RecRuleFilterList>(api, 'GetRecRuleFilterList');
+            const ret = await this.serviceProvider.get<Response.RecRuleFilterList>('GetRecRuleFilterList');
             return ret.RecRuleFilterList;
         }
         async GetRecStorageGroupList() {
-            return StringListGet(this.serviceProvider, api, 'GetRecStorageGroupList');
+            return StringListGet(this.serviceProvider, 'GetRecStorageGroupList');
         }
         async GetRecordSchedule(req: Request.GetRecordSchedule): Promise<ApiTypes.RecRule> {
-            const ret = await this.serviceProvider.get<Response.RecRule>(api, 'GetRecordSchedule', req);
+            const ret = await this.serviceProvider.get<Response.RecRule>('GetRecordSchedule', req);
             return ret.RecRule;
         }
         async GetRecordScheduleList(req: Request.GetRecordScheduleList): Promise<ApiTypes.RecRuleList> {
-            const ret = await this.serviceProvider.get<Response.RecRuleList>(api, 'GetRecordScheduleList', req);
+            const ret = await this.serviceProvider.get<Response.RecRuleList>('GetRecordScheduleList', req);
             return ret.RecRuleList;
         }
         async GetRecorded(req: Request.GetRecorded): Promise<ApiTypes.Program> {
-            const ret = await this.serviceProvider.get<Response.Program>(api, 'GetRecorded', req);
+            const ret = await this.serviceProvider.get<Response.Program>('GetRecorded', req);
             return ret.Program;
         }
         async GetRecordedCommBreak(req: Request.GetRecordedCommBreak): Promise<ApiTypes.Cutting[]> {
-            const ret = await this.serviceProvider.get<Response.CutList>(api, 'GetRecordedCommBreak', req);
+            const ret = await this.serviceProvider.get<Response.CutList>('GetRecordedCommBreak', req);
             return ret.CutList.Cuttings;
         }
         async GetRecordedCutList(req: Request.GetRecordedCutList): Promise<ApiTypes.Cutting[]> {
-            const ret = await this.serviceProvider.get<Response.CutList>(api, 'GetRecordedCutList', req);
+            const ret = await this.serviceProvider.get<Response.CutList>('GetRecordedCutList', req);
             return ret.CutList.Cuttings;
         }
         async GetRecordedSeek(req: Request.GetRecordedSeek): Promise<ApiTypes.Cutting[]> {
-            const ret = await this.serviceProvider.get<Response.CutList>(api, 'GetRecordedSeek', req);
+            const ret = await this.serviceProvider.get<Response.CutList>('GetRecordedSeek', req);
             return ret.CutList.Cuttings;
         }
         async GetSavedBookmark(req: Request.GetSavedBookmark) {
-            return LongGet(this.serviceProvider, api, 'GetSavedBookmark', req);
+            return LongGet(this.serviceProvider, 'GetSavedBookmark', req);
         }
         async GetTitleInfoList(): Promise<ApiTypes.TitleInfo[]> {
-            const ret = await this.serviceProvider.get<Response.TitleInfoList>(api, 'GetTitleInfoList');
+            const ret = await this.serviceProvider.get<Response.TitleInfoList>('GetTitleInfoList');
             return ret.TitleInfoList.TitleInfos;
         }
         async GetTitleList(req: Request.GetTitleList) {
-            return StringListGet(this.serviceProvider, api, 'GetTitleList', req);
+            return StringListGet(this.serviceProvider, 'GetTitleList', req);
         }
         async ReactivateRecording(req: Request.ReactivateRecording) {
-            return BoolGet(this.serviceProvider, api, 'ReactivateRecording', req);
+            return BoolGet(this.serviceProvider, 'ReactivateRecording', req);
         }
         async RecStatusToDescription(req: Request.RecStatusToDescription) {
-            return StringGet(this.serviceProvider, api, 'RecStatusToDescription', req);
+            return StringGet(this.serviceProvider, 'RecStatusToDescription', req);
         }
         async RecStatusToString(req: Request.RecStatusToString) {
-            return StringGet(this.serviceProvider, api, 'RecStatusToString', req);
+            return StringGet(this.serviceProvider, 'RecStatusToString', req);
         }
         async RecTypeToDescription(req: Request.RecTypeToDescription) {
-            return StringGet(this.serviceProvider, api, 'RecTypeToDescription', req);
+            return StringGet(this.serviceProvider, 'RecTypeToDescription', req);
         }
         async RecTypeToString(req: Request.RecTypeToString) {
-            return StringGet(this.serviceProvider, api, 'RecTypeToString', req);
+            return StringGet(this.serviceProvider, 'RecTypeToString', req);
         }
         async RecordedIdForPathname(req: Request.RecordedIdForPathname) {
-            return IntGet(this.serviceProvider, api, 'RecordedIdForPathname', req);
+            return IntGet(this.serviceProvider, 'RecordedIdForPathname', req);
         }
         async RemoveRecordSchedule(req: Request.RemoveRecordSchedule) {
-            return BoolPost(this.serviceProvider, api, 'RemoveRecordSchedule', req);
+            return BoolPost(this.serviceProvider, 'RemoveRecordSchedule', req);
         }
         async RemoveRecorded(req: Request.RemoveRecorded) {
-            return BoolPost(this.serviceProvider, api, 'RemoveRecorded', req);
+            return BoolPost(this.serviceProvider, 'RemoveRecorded', req);
         }
         async RescheduleRecordings() {
-            return BoolGet(this.serviceProvider, api, 'RescheduleRecordings');
+            return BoolGet(this.serviceProvider, 'RescheduleRecordings');
         }
         async SetSavedBookmark(req: Request.SetSavedBookmark) {
-            return BoolPost(this.serviceProvider, api, 'SetSavedBookmark', req);
+            return BoolPost(this.serviceProvider, 'SetSavedBookmark', req);
         }
         async StopRecording(req: Request.StopRecording) {
-            return BoolGet(this.serviceProvider, api, 'StopRecording', req);
+            return BoolGet(this.serviceProvider, 'StopRecording', req);
         }
         async UnDeleteRecording(req: Request.UnDeleteRecording) {
-            return BoolGet(this.serviceProvider, api, 'UnDeleteRecording', req);
+            return BoolGet(this.serviceProvider, 'UnDeleteRecording', req);
         }
         async UpdateRecordSchedule(req: Request.UpdateRecordSchedule) {
-            return BoolPost(this.serviceProvider, api, 'UpdateRecordSchedule', req);
+            return BoolPost(this.serviceProvider, 'UpdateRecordSchedule', req);
         }
         async UpdateRecordedWatchedStatus(req: Request.UpdateRecordedWatchedStatus) {
-            return BoolPost(this.serviceProvider, api, 'UpdateRecordedWatchedStatus', req);
+            return BoolPost(this.serviceProvider, 'UpdateRecordedWatchedStatus', req);
         }
         async GetProgramCategories(req: Request.GetProgramCategories) {
-            return StringListGet(this.serviceProvider, api, 'GetProgramCategories', req);
+            return StringListGet(this.serviceProvider, 'GetProgramCategories', req);
         }
         async RecordedIdForKey(req: Request.RecordedIdForKey) {
-            return IntGet(this.serviceProvider, api, 'RecordedIdForKey', req);
+            return IntGet(this.serviceProvider, 'RecordedIdForKey', req);
         }
     }
 }

@@ -95,39 +95,41 @@ export namespace VideoService {
             VideoLookupList: ApiTypes.VideoLookupList
         }
     }
-    const api = 'Video';
     export class Service extends AbstractService {
+        constructor(baseUrl: URL) {
+            super(baseUrl, 'Video')
+        }
         async GetVideoList(req: Request.GetVideoList): Promise<ApiTypes.VideoMetadataInfoList> {
-            const ret = await this.serviceProvider.get<Response.VideoMetadataInfoList>(api, 'GetVideoList', req);
+            const ret = await this.serviceProvider.get<Response.VideoMetadataInfoList>('GetVideoList', req);
             return ret.VideoMetadataInfoList;
         }
         async AddVideo(req: Request.AddVideo) {
-            return BoolPost(this.serviceProvider, api, 'AddVideo', req);
+            return BoolPost(this.serviceProvider, 'AddVideo', req);
         }
         async GetBluray(req: Request.GetBluray): Promise<ApiTypes.BlurayInfo> {
-            const ret = await this.serviceProvider.get<Response.BlurayInfo>(api, 'GetBluray', req);
+            const ret = await this.serviceProvider.get<Response.BlurayInfo>('GetBluray', req);
             return ret.BlurayInfo;
         }
         async GetVideo(req: Request.GetVideo): Promise<ApiTypes.VideoMetadataInfo> {
-            const ret = await this.serviceProvider.get<Response.VideoMetadataInfo>(api, 'GetVideo', req);
+            const ret = await this.serviceProvider.get<Response.VideoMetadataInfo>('GetVideo', req);
             return ret.VideoMetadataInfo;
         }
         async GetVideoByFileName(req: Request.GetVideoByFileName): Promise<ApiTypes.VideoMetadataInfo> {
-            const ret = await this.serviceProvider.get<Response.VideoMetadataInfo>(api, 'GetVideoByFileName', req);
+            const ret = await this.serviceProvider.get<Response.VideoMetadataInfo>('GetVideoByFileName', req);
             return ret.VideoMetadataInfo;
         }
         async LookupVideo(req: Request.LookupVideo): Promise<ApiTypes.VideoLookupList> {
-            const ret = await this.serviceProvider.get<Response.VideoLookupList>(api, 'LookupVideo', req);
+            const ret = await this.serviceProvider.get<Response.VideoLookupList>('LookupVideo', req);
             return ret.VideoLookupList;
         }
         async RemoveVideoFromDB(req: Request.RemoveVideoFromDB) {
-            return BoolPost(this.serviceProvider, api, 'RemoveVideoFromDB', req);
+            return BoolPost(this.serviceProvider, 'RemoveVideoFromDB', req);
         }
         async UpdateVideoMetadata(req: Request.UpdateVideoMetadata) {
-            return BoolPost(this.serviceProvider, api, 'UpdateVideoMetadata', req);
+            return BoolPost(this.serviceProvider, 'UpdateVideoMetadata', req);
         }
         async UpdateVideoWatchedStatus(req: Request.UpdateVideoWatchedStatus) {
-            return BoolPost(this.serviceProvider, api, 'UpdateVideoWatchedStatus', req);
+            return BoolPost(this.serviceProvider, 'UpdateVideoWatchedStatus', req);
         }
     }
 }
