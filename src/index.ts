@@ -40,7 +40,7 @@ export class BackendServices {
         this.guideService = new GuideService.Service(baseUrl)
     }
     get hostname(){
-        return this.baseUrl.host
+        return this.baseUrl.hostname
     }
     get port(){
         return this.baseUrl.port
