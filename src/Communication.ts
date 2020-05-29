@@ -1,11 +1,13 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { Agent } from 'http';
 import { stringify } from 'qs'
 import * as moment from 'moment'
 import { Readable, Writable } from 'stream';
-const time_header = 'start_time'
-let counter = 0;
+import {performance} from 'perf_hooks'
 
+interface TimedAxiosRequestConfig extends AxiosRequestConfig {
+    startTime: number
+}
 const jsonAxios = axios.create({
     httpsAgent: new Agent(
         { keepAlive: true }),
@@ -31,14 +33,15 @@ const jsonAxios = axios.create({
     }
 });
 jsonAxios.interceptors.request.use((request) => {
-    const requestCounter = request.url + ":" + counter++
-    console.time(requestCounter)
-    request.headers[time_header] = requestCounter
+    const timedRequest = <TimedAxiosRequestConfig>request
+    timedRequest.startTime = performance.now()
     return request;
 });
 
 jsonAxios.interceptors.response.use((response) => {
-    console.timeEnd(response.config.headers[time_header])
+    const timedRequest = <TimedAxiosRequestConfig>response.config
+    const duration = performance.now() - timedRequest.startTime
+    console.log('URL: %s Duration: %d', timedRequest.url, duration)
     return response;
 })
 const numberParser = new RegExp('^\\d+(?:\.\\d+)?$')
