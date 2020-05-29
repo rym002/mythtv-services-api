@@ -1,6 +1,6 @@
 {
   "name": "mythtv-services-api",
-  "version": "30.1.1",
+  "version": "30.1.2",
   "description": "Mythtv Service Api Bindings",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
