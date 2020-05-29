@@ -154,3 +154,8 @@
   * PlayVideo
   * GetContextList
   * SendNotification
+
+## CORS
+To enable Access-Control-Allow-Origin MythTV HTTP API insert **AllowedOriginsList** in the **settings** table.
+    
+    INSERT INTO `settings` (`value`, `data`, `hostname`) VALUES ('AllowedOriginsList', 'http://host1,http://host2', 'backend_hostname')

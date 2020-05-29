@@ -3,7 +3,6 @@ import { Agent } from 'http';
 import { stringify } from 'qs'
 import * as moment from 'moment'
 import { Readable, Writable } from 'stream';
-import {performance} from 'perf_hooks'
 
 interface TimedAxiosRequestConfig extends AxiosRequestConfig {
     startTime: number
@@ -34,13 +33,13 @@ const jsonAxios = axios.create({
 });
 jsonAxios.interceptors.request.use((request) => {
     const timedRequest = <TimedAxiosRequestConfig>request
-    timedRequest.startTime = performance.now()
+    timedRequest.startTime = Date.now()
     return request;
 });
 
 jsonAxios.interceptors.response.use((response) => {
     const timedRequest = <TimedAxiosRequestConfig>response.config
-    const duration = performance.now() - timedRequest.startTime
+    const duration = Date.now() - timedRequest.startTime
     console.log('URL: %s Duration: %d', timedRequest.url, duration)
     return response;
 })
