@@ -30,7 +30,7 @@ export class BackendServices {
     readonly captureService: CaptureService.Service;
     readonly contentService: ContentService.Service;
     readonly guideService: GuideService.Service;
-    constructor(baseUrl: URL) {
+    constructor(private readonly baseUrl: URL) {
         this.mythService = new MythService.Service(baseUrl);
         this.dvrService = new DvrService.Service(baseUrl);
         this.channelService = new ChannelService.Service(baseUrl);
@@ -38,6 +38,15 @@ export class BackendServices {
         this.captureService = new CaptureService.Service(baseUrl)
         this.contentService = new ContentService.Service(baseUrl)
         this.guideService = new GuideService.Service(baseUrl)
+    }
+    get hostname(){
+        return this.baseUrl.host
+    }
+    get port(){
+        return this.baseUrl.port
+    }
+    get protocol(){
+        return this.baseUrl.protocol
     }
 }
 
