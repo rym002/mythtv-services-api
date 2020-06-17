@@ -6,10 +6,12 @@ export namespace ChannelService {
     export namespace Request {
         export interface GetChannelInfoList extends Partial<ApiTypes.ListRequest> {
             SourceID?: number;
+            ChannelGroupID?: number
             OnlyVisible?: boolean;
             Details?: boolean;
             OrderByName?: boolean;
             GroupByCallsign?: boolean;
+            OnlyTunable?: boolean
         }
         export interface AddDBChannel {
             MplexID: number
@@ -23,11 +25,13 @@ export namespace ChannelService {
             ATSCMinorChannel: number
             UseEIT: boolean
             Visible: boolean
+            ExtendedVisible: ApiTypes.ChannelVisibleType
             FrequencyID: string
             Icon: string
             Format: string
             XMLTVID: string
             DefaultAuthority: string
+            ServiceType: number
         }
         export interface AddVideoSource {
             SourceName: string
@@ -39,6 +43,9 @@ export namespace ChannelService {
             UseEIT: boolean
             ConfigPath: string
             NITId: number
+            BouquetId: number
+            RegionId: number
+            ScanFrequency: number
         }
         export interface FetchChannelsFromSource {
             SourceId: number
@@ -77,11 +84,13 @@ export namespace ChannelService {
             ATSCMinorChannel: number
             UseEIT: boolean
             Visible: boolean
+            ExtendedVisible: ApiTypes.ChannelVisibleType
             FrequencyID: string
             Icon: string
             Format: string
             XMLTVID: string
             DefaultAuthority: string
+            ServiceType: number
         }
         export interface UpdateVideoSource {
             SourceID: number
@@ -94,6 +103,9 @@ export namespace ChannelService {
             UseEIT: boolean
             ConfigPath: string
             NITId: number
+            BouquetId: number
+            RegionId: number
+            ScanFrequency: number
         }
         export interface GetVideoMultiplexList extends Partial<ApiTypes.ListRequest> {
             SourceID: number

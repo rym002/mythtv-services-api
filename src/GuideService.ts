@@ -25,6 +25,7 @@ export namespace GuideService {
             EndTime: Date
             Details?: boolean
             ChannelGroupId?: number
+            WithInvisible?: boolean
         }
         export interface GetProgramList extends Partial<ApiTypes.SortedListRequest<'starttime' | 'title' | 'channel' | 'duration'>> {
             StartTime?: Date
@@ -36,6 +37,8 @@ export namespace GuideService {
             KeywordFilter?: string
             OnlyNew?: boolean
             Details?: boolean
+            Descending?: boolean
+            WithInvisible?: boolean
         }
         export interface GetStoredSearches {
             Type: string
@@ -60,8 +63,8 @@ export namespace GuideService {
         }
     }
     export class Service extends AbstractService {
-        constructor(baseUrl: URL){
-            super(baseUrl,'Guide')
+        constructor(baseUrl: URL) {
+            super(baseUrl, 'Guide')
         }
         async AddToChannelGroup(req: Request.AddToChannelGroup) {
             return BoolPost(this.serviceProvider, 'AddToChannelGroup', req)

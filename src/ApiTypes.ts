@@ -69,10 +69,12 @@ namespace ApiTypes {
         CommFree?: boolean
         UseEIT?: boolean
         Visible?: boolean
+        ExtendedVisible?: ChannelVisibleType
         XMLTVID?: string
         DefaultAuth?: string
         ChannelGroups?: string
         Inputs?: string
+        ServiceType?: number
         Programs: Program[]
     }
     export interface Program {
@@ -173,6 +175,9 @@ namespace ApiTypes {
         UseEIT: boolean;
         ConfigPath: string;
         NITId: string;
+        BouquetId: number
+        RegionId: number
+        ScanFrequency: number
     }
 
 
@@ -669,6 +674,11 @@ namespace ApiTypes {
         TitleInfos: ApiTypes.TitleInfo[]
     }
 
+    export type ChannelVisibleType =
+        'Always Visible'
+        | 'Visible'
+        | 'Not Visible'
+        | 'Never Visible'
 }
 
 export default ApiTypes;
