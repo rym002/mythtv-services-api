@@ -16,6 +16,7 @@ export * from './DvrService';
 export * from './Frontend';
 export * from './GuideService';
 export * from './MythService';
+export * from './VideoService';
 
 const DEFAULT_FE_PORT = '6547';
 const DEFAULT_BE_PORT = 6544;
