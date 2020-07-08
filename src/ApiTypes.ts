@@ -29,6 +29,62 @@ namespace ApiTypes {
         Offline = 12
     }
 
+    export enum AudioProperty {
+        STEREO = 1,
+        MONO = 2,
+        SURROUND = 4,
+        DOLBY = 8,
+        HARDHEAR = 16,
+        VISUALIMPAIR = 32
+    }
+
+    export enum VideoProperty {
+        HDTV = 1,
+        WIDESCREEN = 2,
+        AVC = 4,
+        HD720 = 8,
+        HD1080 = 16,
+        DAMAGED = 32,
+        _3DTV = 64
+    }
+
+    export enum SubtitleType {
+        HARDHEAR = 1,
+        NORMAL = 2,
+        ONSCREEN = 4,
+        SIGNED = 8
+    }
+
+    export enum ProgramFlag {
+        COMMFLAG = 1,
+        CUTLIST = 2,
+        AUTOEXP = 4,
+        EDITING = 8,
+        BOOKMARK = 16,
+        REALLYEDITING = 32,
+        COMMPROCESSING = 64,
+        DELETEPENDING = 128,
+        TRANSCODED = 256,
+        WATCHED = 512,
+        PRESERVED = 1024,
+        CHANCOMMFREE = 2048,
+        REPEAT = 4096,
+        DUPLICATE = 8192,
+        REACTIVATE = 16384,
+        IGNOREBOOKMARK = 32768,
+        TYPEMASK = 983040,
+        INUSERECORDING = 1048576,
+        INUSEPLAYING = 2097152,
+        INUSEOTHER = 4194304
+    }
+
+    export enum CategoryType {
+        NONE = "",
+        MOVIE = "movie",
+        SERIES = "series",
+        TVSHOW = "tvshow",
+        SPORTS = "sports"
+    }
     export interface RecordingInfo {
         RecordedId: number
         Status: RecStatusType
@@ -83,7 +139,7 @@ namespace ApiTypes {
         Title: string
         SubTitle: string
         Category: string
-        CatType: string
+        CatType: CategoryType
         Repeat: boolean
         VideoProps: number
         AudioProps: number
