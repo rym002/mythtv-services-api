@@ -29,7 +29,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "moment": "^2.26.0",
     "qs": "^6.9.4"
   },
