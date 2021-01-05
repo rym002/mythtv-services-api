@@ -15,12 +15,12 @@
   "author": "Raymond Munian",
   "license": "ISC",
   "devDependencies": {
-    "@types/chai": "^4.2.11",
+    "@types/chai": "^4.2.14",
     "@types/chai-as-promised": "^7.1.2",
     "@types/mocha": "^7.0.2",
     "@types/nock": "^10.0.3",
-    "@types/node": "^10.17.26",
-    "@types/qs": "^6.9.3",
+    "@types/node": "^10.17.50",
+    "@types/qs": "^6.9.5",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "mocha": "^7.2.0",
@@ -29,8 +29,8 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "axios": "^0.18.1",
-    "moment": "^2.26.0",
+    "axios": "^0.21.1",
+    "moment": "^2.29.1",
     "qs": "^6.9.4"
   },
   "repository": {
