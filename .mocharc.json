@@ -1,0 +1,6 @@
+{
+    "extension": "ts",
+    "recursive": true,
+    "exit": true,
+    "require": "ts-node/register"
+}
