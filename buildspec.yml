@@ -2,12 +2,11 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 10
+      nodejs: 12
   pre_build:
     commands:
-      - npm install      
+      - echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+      - npm clean-install-test      
   build:
     commands:
-      - npm test
-      - echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
       - npm publish $PUBLISH_ARGS --unsafe-perm
