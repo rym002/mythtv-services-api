@@ -4,33 +4,34 @@ import 'mocha';
 import * as nock from 'nock';
 import { frontend, Frontend, ApiTypes, getFrontendServices } from '../src/';
 import { backendNock, toBool, toString, toStringList } from './MockHelpers';
+import { DataMatcherMap } from 'nock'
 
 use(chaiAsPromised);
 
 describe('Frontend', () => {
     const requests = {
-        GetActionList: <Frontend.Request.GetActionList>{
+        GetActionList: <Frontend.Request.GetActionList & DataMatcherMap>{
             Context: 'GetActionList'
         },
-        PlayRecording: <Frontend.Request.PlayRecording>{
+        PlayRecording: <Frontend.Request.PlayRecording & DataMatcherMap>{
             RecordedId: 1
         },
-        PlayVideo: <Frontend.Request.PlayVideo>{
+        PlayVideo: <Frontend.Request.PlayVideo & DataMatcherMap>{
             Id: '1'
         },
-        SendAction: <Frontend.Request.SendAction>{
+        SendAction: <Frontend.Request.SendAction & DataMatcherMap>{
             Action: 'SendAction'
         },
-        SendActionFalse: <Frontend.Request.SendAction>{
+        SendActionFalse: <Frontend.Request.SendAction & DataMatcherMap>{
             Action: 'SendActionFalse'
         },
-        SendKey: <Frontend.Request.SendKey>{
+        SendKey: <Frontend.Request.SendKey & DataMatcherMap>{
             Key: 'SendKey'
         },
-        SendMessage: <Frontend.Request.SendMessage>{
+        SendMessage: <Frontend.Request.SendMessage & DataMatcherMap>{
             Message: 'SendMessage'
         },
-        SendNotification: <Frontend.Request.SendNotification>{
+        SendNotification: <Frontend.Request.SendNotification & DataMatcherMap>{
             Message: 'SendNotification',
             Priority: Frontend.Request.PriorityType.high,
             Type: Frontend.Request.NotificationType.busy,

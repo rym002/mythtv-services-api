@@ -3,18 +3,21 @@ import * as chaiAsPromised from 'chai-as-promised';
 import 'mocha';
 import { masterBackend, ChannelService, ApiTypes } from '../src/index'
 import { backendNock, toBool, toInt, toStringList } from './MockHelpers'
+import { DataMatcherMap } from 'nock'
 
 use(chaiAsPromised);
 
 describe('ChannelService', () => {
     const requests = {
-        GetChannelInfoList: <ChannelService.Request.GetChannelInfoList>{
+        GetChannelInfoList: <ChannelService.Request.GetChannelInfoList & DataMatcherMap>{
             SourceID: 1,
             OnlyVisible: false,
             Details: false
         },
-        GetChannelInfo: <ChannelService.Request.GetChannelInfo>{ ChanID: 123 },
-        AddDBChannel: <ChannelService.Request.AddDBChannel>{
+        GetChannelInfo: <ChannelService.Request.GetChannelInfo & DataMatcherMap>{
+            ChanID: 123
+        },
+        AddDBChannel: <ChannelService.Request.AddDBChannel & DataMatcherMap>{
             ATSCMajorChannel: 1,
             ATSCMinorChannel: 1,
             CallSign: 'A',
@@ -32,7 +35,7 @@ describe('ChannelService', () => {
             Visible: true,
             XMLTVID: ''
         },
-        AddVideoSource: <ChannelService.Request.AddVideoSource>{
+        AddVideoSource: <ChannelService.Request.AddVideoSource & DataMatcherMap>{
             ConfigPath: '',
             FreqTable: '',
             Grabber: '',
@@ -43,23 +46,35 @@ describe('ChannelService', () => {
             UseEIT: true,
             UserId: ''
         },
-        FetchChannelsFromSource: <ChannelService.Request.FetchChannelsFromSource>{
+        FetchChannelsFromSource: <ChannelService.Request.FetchChannelsFromSource & DataMatcherMap>{
             SourceId: 1,
             CardId: 1,
             WaitForFinish: false
         },
-        GetDDLineupList: <ChannelService.Request.GetDDLineupList>{
+        GetDDLineupList: <ChannelService.Request.GetDDLineupList & DataMatcherMap>{
             Source: '1',
             UserId: '',
             Password: ''
         },
-        GetVideoMultiplex: <ChannelService.Request.GetVideoMultiplex>{ MplexID: 1 },
-        GetVideoMultiplexList: <ChannelService.Request.GetVideoMultiplexList>{ SourceID: 1 },
-        GetVideoSource: <ChannelService.Request.GetVideoSource>{ SourceID: 2 },
-        GetXMLTVIdList: <ChannelService.Request.GetXMLTVIdList>{ SourceID: 3 },
-        RemoveDBChannel: <ChannelService.Request.RemoveDBChannel>{ ChannelID: 1 },
-        RemoveVideoSource: <ChannelService.Request.RemoveVideoSource>{ SourceID: 4 },
-        UpdateDBChannel: <ChannelService.Request.UpdateDBChannel>{
+        GetVideoMultiplex: <ChannelService.Request.GetVideoMultiplex & DataMatcherMap>{
+            MplexID: 1
+        },
+        GetVideoMultiplexList: <ChannelService.Request.GetVideoMultiplexList & DataMatcherMap>{
+            SourceID: 1
+        },
+        GetVideoSource: <ChannelService.Request.GetVideoSource & DataMatcherMap>{
+            SourceID: 2
+        },
+        GetXMLTVIdList: <ChannelService.Request.GetXMLTVIdList & DataMatcherMap>{
+            SourceID: 3
+        },
+        RemoveDBChannel: <ChannelService.Request.RemoveDBChannel & DataMatcherMap>{
+            ChannelID: 1
+        },
+        RemoveVideoSource: <ChannelService.Request.RemoveVideoSource & DataMatcherMap>{
+            SourceID: 4
+        },
+        UpdateDBChannel: <ChannelService.Request.UpdateDBChannel & DataMatcherMap>{
             ATSCMajorChannel: 1,
             ATSCMinorChannel: 1,
             CallSign: 'A',
@@ -77,7 +92,7 @@ describe('ChannelService', () => {
             Visible: true,
             XMLTVID: ''
         },
-        UpdateVideoSource: <ChannelService.Request.UpdateVideoSource>{
+        UpdateVideoSource: <ChannelService.Request.UpdateVideoSource & DataMatcherMap>{
             ConfigPath: '',
             FreqTable: '',
             Grabber: '',

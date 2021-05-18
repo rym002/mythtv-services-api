@@ -3,38 +3,39 @@ import * as chaiAsPromised from 'chai-as-promised';
 import 'mocha';
 import { ApiTypes, masterBackend, CaptureService } from '../src/index';
 import { backendNock, toBool, toInt } from './MockHelpers';
+import {DataMatcherMap}  from 'nock'
 
 use(chaiAsPromised);
 
 describe('CaptureService', () => {
     const requests = {
-        AddCaptureCard: <CaptureService.Request.AddCaptureCard>{
+        AddCaptureCard: <CaptureService.Request.AddCaptureCard & DataMatcherMap>{
             CardType: 'ATSC',
             HostName: '',
             VideoDevice: ''
         },
-        AddCardInput: <CaptureService.Request.AddCardInput>{
+        AddCardInput: <CaptureService.Request.AddCardInput & DataMatcherMap>{
             CardId: 1,
             SourceId: 1
         },
-        GetCaptureCard: <CaptureService.Request.GetCaptureCard>{
+        GetCaptureCard: <CaptureService.Request.GetCaptureCard & DataMatcherMap>{
             CardId: 1
         },
-        GetCaptureCardList: <CaptureService.Request.GetCaptureCardList>{
+        GetCaptureCardList: <CaptureService.Request.GetCaptureCardList & DataMatcherMap>{
             CardType: 'ASI'
         },
-        RemoveCaptureCard: <CaptureService.Request.RemoveCaptureCard>{
+        RemoveCaptureCard: <CaptureService.Request.RemoveCaptureCard & DataMatcherMap>{
             CardId: 1
         },
-        RemoveCardInput: <CaptureService.Request.RemoveCardInput>{
+        RemoveCardInput: <CaptureService.Request.RemoveCardInput & DataMatcherMap>{
             CardInputId: 1
         },
-        UpdateCaptureCard: <CaptureService.Request.UpdateCaptureCard>{
+        UpdateCaptureCard: <CaptureService.Request.UpdateCaptureCard & DataMatcherMap>{
             CardId: 1,
             Setting: '',
             Value: ''
         },
-        UpdateCardInput: <CaptureService.Request.UpdateCardInput>{
+        UpdateCardInput: <CaptureService.Request.UpdateCardInput & DataMatcherMap>{
             CardInputId: 1,
             Setting: '',
             Value: ''

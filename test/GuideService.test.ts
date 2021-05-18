@@ -3,35 +3,36 @@ import * as chaiAsPromised from 'chai-as-promised';
 import 'mocha';
 import { ApiTypes, masterBackend, GuideService } from '../src/index';
 import { backendNock, toBool, toString, toStringList, convertDateParams } from './MockHelpers';
+import { DataMatcherMap } from 'nock'
 
 use(chaiAsPromised);
 
 describe('GuideService', () => {
     const requests = {
-        AddToChannelGroup: <GuideService.Request.AddToChannelGroup>{
+        AddToChannelGroup: <GuideService.Request.AddToChannelGroup & DataMatcherMap>{
             ChanId: 1,
             ChannelGroupId: 2
         },
-        GetChannelGroupList: <GuideService.Request.GetChannelGroupList>{
+        GetChannelGroupList: <GuideService.Request.GetChannelGroupList & DataMatcherMap>{
             IncludeEmpty: false
         },
-        GetChannelIcon: <GuideService.Request.GetChannelIcon>{
+        GetChannelIcon: <GuideService.Request.GetChannelIcon & DataMatcherMap>{
             ChanId: 2
         },
-        GetProgramDetails: <GuideService.Request.GetProgramDetails>{
+        GetProgramDetails: <GuideService.Request.GetProgramDetails & DataMatcherMap>{
             ChanId: 3
         },
         GetProgramGuide: <GuideService.Request.GetProgramGuide>{
             StartTime: new Date(),
             EndTime: new Date()
         },
-        GetProgramList: <GuideService.Request.GetProgramList>{
+        GetProgramList: <GuideService.Request.GetProgramList & DataMatcherMap>{
             ChanId: 4
         },
-        GetStoredSearches: <GuideService.Request.GetStoredSearches>{
+        GetStoredSearches: <GuideService.Request.GetStoredSearches & DataMatcherMap>{
             Type: 'x'
         },
-        RemoveFromChannelGroup: <GuideService.Request.RemoveFromChannelGroup>{
+        RemoveFromChannelGroup: <GuideService.Request.RemoveFromChannelGroup & DataMatcherMap>{
             ChanId: 3,
             ChannelGroupId: 4
         },

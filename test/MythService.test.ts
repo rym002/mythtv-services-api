@@ -3,29 +3,30 @@ import * as chaiAsPromised from 'chai-as-promised';
 import 'mocha';
 import { masterBackend, MythService, ApiTypes } from '../src/index';
 import { backendNock, toString, toStringList, toBool, convertDateParams, toDateTime } from './MockHelpers';
+import { DataMatcherMap } from 'nock'
 
 use(chaiAsPromised);
 
 describe('MythService', () => {
     const requests = {
-        GetSetting: <MythService.Request.GetSetting>{
+        GetSetting: <MythService.Request.GetSetting & DataMatcherMap>{
             Key: 'Test',
             Default: 'defaultValue'
         },
-        AddStorageGroupDir: <MythService.Request.AddStorageGroupDir>{
+        AddStorageGroupDir: <MythService.Request.AddStorageGroupDir & DataMatcherMap>{
             DirName: 'a',
             GroupName: 'b',
             HostName: 'c'
         },
-        ChangePassword: <MythService.Request.ChangePassword>{
+        ChangePassword: <MythService.Request.ChangePassword & DataMatcherMap>{
             UserName: 'u',
             OldPassword: 'op',
             NewPassword: 'np'
         },
-        CheckDatabase: <MythService.Request.CheckDatabase>{
+        CheckDatabase: <MythService.Request.CheckDatabase & DataMatcherMap>{
             Repair: true
         },
-        GetConnectionInfo: <MythService.Request.GetConnectionInfo>{
+        GetConnectionInfo: <MythService.Request.GetConnectionInfo & DataMatcherMap>{
             Pin: '123'
         },
         GetFormatDate: <MythService.Request.GetFormatDate>{
@@ -40,7 +41,7 @@ describe('MythService', () => {
             Time: new Date(),
             ShortDate: false
         },
-        GetFrontends: <MythService.Request.GetFrontends>{
+        GetFrontends: <MythService.Request.GetFrontends & DataMatcherMap>{
             OnLine: false
         },
         GetLogs: <MythService.Request.GetLogs>{
@@ -57,33 +58,33 @@ describe('MythService', () => {
             Thread: '',
             ToTime: new Date()
         },
-        GetSettingList: <MythService.Request.GetSettingList>{
+        GetSettingList: <MythService.Request.GetSettingList & DataMatcherMap>{
             HostName: 'a'
         },
-        GetStorageGroupDirs: <MythService.Request.GetStorageGroupDirs>{
+        GetStorageGroupDirs: <MythService.Request.GetStorageGroupDirs & DataMatcherMap>{
             HostName: 'a',
             GroupName: 'b'
         },
-        ParseISODateString: <MythService.Request.ParseISODateString>{
+        ParseISODateString: <MythService.Request.ParseISODateString & DataMatcherMap>{
             DateTime:'2019'
         },
-        PutSetting: <MythService.Request.PutSetting>{
+        PutSetting: <MythService.Request.PutSetting & DataMatcherMap>{
             HostName:'',
             Key:'',
             Value:''
         },
-        RemoveStorageGroupDir: <MythService.Request.RemoveStorageGroupDir>{
+        RemoveStorageGroupDir: <MythService.Request.RemoveStorageGroupDir & DataMatcherMap>{
             HostName:'',
             DirName:'',
             GroupName:''
         },
-        SendMessage: <MythService.Request.SendMessage>{
+        SendMessage: <MythService.Request.SendMessage & DataMatcherMap>{
             Message:'msg'
         },
-        SendNotification: <MythService.Request.SendNotification>{
+        SendNotification: <MythService.Request.SendNotification & DataMatcherMap>{
             Message:'notif'
         },
-        TestDBSettings: <MythService.Request.TestDBSettings>{
+        TestDBSettings: <MythService.Request.TestDBSettings & DataMatcherMap>{
             DBName:'',
             HostName:'',
             Password:'',

@@ -4,28 +4,29 @@ import * as chaiAsPromised from 'chai-as-promised';
 import { masterBackend, ApiTypes } from '../src/index'
 import { backendNock, toBool } from './MockHelpers'
 import { VideoService } from '../src/VideoService';
+import { DataMatcherMap } from 'nock'
 
 use(chaiAsPromised);
 
 describe('VideoService', () => {
     const requests = {
-        GetVideoList: <VideoService.Request.GetVideoList>{
+        GetVideoList: <VideoService.Request.GetVideoList & DataMatcherMap>{
             StartIndex: 1
         },
-        AddVideo: <VideoService.Request.AddVideo>{
+        AddVideo: <VideoService.Request.AddVideo & DataMatcherMap>{
             FileName:'',
             HostName:''
         },
-        GetBluray: <VideoService.Request.GetBluray>{
+        GetBluray: <VideoService.Request.GetBluray & DataMatcherMap>{
             Path:''
         },
-        GetVideo: <VideoService.Request.GetVideo>{
+        GetVideo: <VideoService.Request.GetVideo & DataMatcherMap>{
             Id:1
         },
-        GetVideoByFileName: <VideoService.Request.GetVideoByFileName>{
+        GetVideoByFileName: <VideoService.Request.GetVideoByFileName & DataMatcherMap>{
             FileName:''
         },
-        LookupVideo: <VideoService.Request.LookupVideo>{
+        LookupVideo: <VideoService.Request.LookupVideo & DataMatcherMap>{
             AllowGeneric:true,
             Episode:0,
             GrabberType:'',
@@ -34,14 +35,14 @@ describe('VideoService', () => {
             Subtitle:'',
             Title:''
         },
-        RemoveVideoFromDB: <VideoService.Request.RemoveVideoFromDB>{
+        RemoveVideoFromDB: <VideoService.Request.RemoveVideoFromDB & DataMatcherMap>{
             Id:5
         },
-        UpdateVideoMetadata: <VideoService.Request.UpdateVideoMetadata>{
+        UpdateVideoMetadata: <VideoService.Request.UpdateVideoMetadata & DataMatcherMap>{
             Id:123,
             Year:2001
         },
-        UpdateVideoWatchedStatus: <VideoService.Request.UpdateVideoWatchedStatus>{
+        UpdateVideoWatchedStatus: <VideoService.Request.UpdateVideoWatchedStatus & DataMatcherMap>{
             Id:1,
             Watched:true
         },

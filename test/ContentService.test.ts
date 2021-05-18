@@ -4,78 +4,79 @@ import 'mocha';
 import { ApiTypes, masterBackend, ContentService } from '../src/index';
 import { backendNock, toBool, toString, toStringList } from './MockHelpers';
 import { Writable } from 'stream';
+import { DataMatcherMap } from 'nock'
 
 use(chaiAsPromised);
 
 describe('ContentService', () => {
     const requests = {
-        AddLiveStream: <ContentService.Request.AddLiveStream>{
+        AddLiveStream: <ContentService.Request.AddLiveStream & DataMatcherMap>{
             FileName: 'AddLiveStream'
         },
-        AddRecordingLiveStream: <ContentService.Request.AddRecordingLiveStream>{
+        AddRecordingLiveStream: <ContentService.Request.AddRecordingLiveStream & DataMatcherMap>{
             RecordedId: 1
         },
-        AddVideoLiveStream: <ContentService.Request.AddVideoLiveStream>{
+        AddVideoLiveStream: <ContentService.Request.AddVideoLiveStream & DataMatcherMap>{
             Id: 1
         },
-        DownloadFile: <ContentService.Request.DownloadFile>{
+        DownloadFile: <ContentService.Request.DownloadFile & DataMatcherMap>{
             StorageGroup: 'x',
             URL: 'x'
         },
-        GetAlbumArt: <ContentService.Request.GetAlbumArt>{
+        GetAlbumArt: <ContentService.Request.GetAlbumArt & DataMatcherMap>{
             Id: 2
         },
-        GetFile: <ContentService.Request.GetFile>{
+        GetFile: <ContentService.Request.GetFile & DataMatcherMap>{
             StorageGroup: 'sg',
             FileName: 'f'
         },
-        GetFileList: <ContentService.Request.GetFileList>{
+        GetFileList: <ContentService.Request.GetFileList & DataMatcherMap>{
             StorageGroup: 'sg'
         },
-        GetDirList: <ContentService.Request.GetDirList>{
+        GetDirList: <ContentService.Request.GetDirList & DataMatcherMap>{
             StorageGroup: 'sg'
         },
-        GetHash: <ContentService.Request.GetHash>{
+        GetHash: <ContentService.Request.GetHash & DataMatcherMap>{
             StorageGroup: 'sg',
             FileName: 'fn'
         },
-        GetImageFile: <ContentService.Request.GetImageFile>{
+        GetImageFile: <ContentService.Request.GetImageFile & DataMatcherMap>{
             FileName: 'fn'
         },
-        GetLiveStream: <ContentService.Request.GetLiveStream>{
+        GetLiveStream: <ContentService.Request.GetLiveStream & DataMatcherMap>{
             Id: 3
         },
-        GetLiveStreamList: <ContentService.Request.GetLiveStreamList>{
+        GetLiveStreamList: <ContentService.Request.GetLiveStreamList & DataMatcherMap>{
             FileName: 'x'
         },
-        GetMusic: <ContentService.Request.GetMusic>{
+        GetMusic: <ContentService.Request.GetMusic & DataMatcherMap>{
             Id: 3
         },
-        GetPreviewImage: <ContentService.Request.GetPreviewImage>{
+        GetPreviewImage: <ContentService.Request.GetPreviewImage & DataMatcherMap>{
             RecordedId: 5
         },
-        GetProgramArtworkList: <ContentService.Request.GetProgramArtworkList>{
+        GetProgramArtworkList: <ContentService.Request.GetProgramArtworkList & DataMatcherMap>{
             Inetref: 'x'
         },
-        GetRecording: <ContentService.Request.GetRecording>{
+        GetRecording: <ContentService.Request.GetRecording & DataMatcherMap>{
             RecordedId: 5
         },
-        GetRecordingArtwork: <ContentService.Request.GetRecordingArtwork>{
+        GetRecordingArtwork: <ContentService.Request.GetRecordingArtwork & DataMatcherMap>{
             Inetref: 'ra'
         },
-        GetRecordingArtworkList: <ContentService.Request.GetRecordingArtworkList>{
+        GetRecordingArtworkList: <ContentService.Request.GetRecordingArtworkList & DataMatcherMap>{
             RecordedId: 7
         },
-        GetVideo: <ContentService.Request.GetVideo>{
+        GetVideo: <ContentService.Request.GetVideo & DataMatcherMap>{
             Id: 6
         },
-        GetVideoArtwork: <ContentService.Request.GetVideoArtwork>{
+        GetVideoArtwork: <ContentService.Request.GetVideoArtwork & DataMatcherMap>{
             Id: 6
         },
-        RemoveLiveStream: <ContentService.Request.RemoveLiveStream>{
+        RemoveLiveStream: <ContentService.Request.RemoveLiveStream & DataMatcherMap>{
             Id: 7
         },
-        StopLiveStream: <ContentService.Request.StopLiveStream>{
+        StopLiveStream: <ContentService.Request.StopLiveStream & DataMatcherMap>{
             Id: 8
         }
     }

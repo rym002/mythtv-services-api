@@ -3,6 +3,7 @@ import 'mocha';
 import * as chaiAsPromised from 'chai-as-promised';
 import { masterBackend, DvrService, ApiTypes } from '../src/index';
 import { backendNock, toBool, toInt, toString, toStringList, toLong, convertDateParams } from './MockHelpers';
+import { DataMatcherMap } from 'nock'
 
 use(chaiAsPromised);
 
@@ -62,66 +63,66 @@ describe('DvrService', () => {
             Transcoder: 1,
             Type: ''
         },
-        DeleteRecording: <DvrService.Request.DeleteRecording>{
+        DeleteRecording: <DvrService.Request.DeleteRecording & DataMatcherMap>{
             AllowRerecord: true,
             ForceDelete: true,
             RecordedId: 1
         },
-        DisableRecordSchedule: <DvrService.Request.DisableRecordSchedule>{
+        DisableRecordSchedule: <DvrService.Request.DisableRecordSchedule & DataMatcherMap>{
             RecordId: 1
         },
-        DupInToDescription: <DvrService.Request.DupInToDescription>{
+        DupInToDescription: <DvrService.Request.DupInToDescription & DataMatcherMap>{
             DupIn: 'des'
         },
-        DupInToString: <DvrService.Request.DupInToString>{
+        DupInToString: <DvrService.Request.DupInToString & DataMatcherMap>{
             DupIn: 'str'
         },
-        DupMethodToDescription: <DvrService.Request.DupMethodToDescription>{
+        DupMethodToDescription: <DvrService.Request.DupMethodToDescription & DataMatcherMap>{
             DupMethod: 'met'
         },
-        DupMethodToString: <DvrService.Request.DupMethodToString>{
+        DupMethodToString: <DvrService.Request.DupMethodToString & DataMatcherMap>{
             DupMethod: 'metst'
         },
-        EnableRecordSchedule: <DvrService.Request.EnableRecordSchedule>{
+        EnableRecordSchedule: <DvrService.Request.EnableRecordSchedule & DataMatcherMap>{
             RecordId: 12
         },
-        GetConflictList: <DvrService.Request.GetConflictList>{
+        GetConflictList: <DvrService.Request.GetConflictList & DataMatcherMap>{
             RecordId: 11,
             Count: 1
         },
-        GetExpiringList: <DvrService.Request.GetExpiringList>{
+        GetExpiringList: <DvrService.Request.GetExpiringList & DataMatcherMap>{
             RecordId: 10,
             StartIndex: 1
         },
-        GetOldRecordedList: <DvrService.Request.GetOldRecordedList>{
+        GetOldRecordedList: <DvrService.Request.GetOldRecordedList & DataMatcherMap>{
             RecordId: 9,
             StartIndex: 1
         },
-        GetRecordSchedule: <DvrService.Request.GetRecordSchedule>{
+        GetRecordSchedule: <DvrService.Request.GetRecordSchedule & DataMatcherMap>{
             RecordId: 1
         },
-        GetRecordScheduleList: <DvrService.Request.GetRecordScheduleList>{
+        GetRecordScheduleList: <DvrService.Request.GetRecordScheduleList & DataMatcherMap>{
             Count: 10
         },
-        GetRecorded: <DvrService.Request.GetRecorded>{
+        GetRecorded: <DvrService.Request.GetRecorded & DataMatcherMap>{
             RecordedId: 99
         },
-        GetRecordedCommBreak: <DvrService.Request.GetRecordedCommBreak>{
+        GetRecordedCommBreak: <DvrService.Request.GetRecordedCommBreak & DataMatcherMap>{
             RecordedId: 98
         },
-        GetRecordedCutList: <DvrService.Request.GetRecordedCutList>{
+        GetRecordedCutList: <DvrService.Request.GetRecordedCutList & DataMatcherMap>{
             RecordedId: 97
         },
-        GetRecordedSeek: <DvrService.Request.GetRecordedSeek>{
+        GetRecordedSeek: <DvrService.Request.GetRecordedSeek & DataMatcherMap>{
             RecordedId: 96
         },
-        GetSavedBookmark: <DvrService.Request.GetSavedBookmark>{
+        GetSavedBookmark: <DvrService.Request.GetSavedBookmark & DataMatcherMap>{
             RecordedId: 95
         },
-        GetTitleList: <DvrService.Request.GetTitleList>{
+        GetTitleList: <DvrService.Request.GetTitleList & DataMatcherMap>{
             RecGroup: ''
         },
-        ReactivateRecording: <DvrService.Request.ReactivateRecording>{
+        ReactivateRecording: <DvrService.Request.ReactivateRecording & DataMatcherMap>{
             RecordedId: 987
         },
         RecStatusToDescription: <DvrService.Request.RecStatusToDescription>{
@@ -129,31 +130,31 @@ describe('DvrService', () => {
             RecType: 1,
             StartTime: new Date()
         },
-        RecStatusToString: <DvrService.Request.RecStatusToString>{
+        RecStatusToString: <DvrService.Request.RecStatusToString & DataMatcherMap>{
             RecStatus: 2
         },
-        RecTypeToDescription: <DvrService.Request.RecTypeToDescription>{
+        RecTypeToDescription: <DvrService.Request.RecTypeToDescription & DataMatcherMap>{
             RecType: 'rt'
         },
-        RecTypeToString: <DvrService.Request.RecTypeToString>{
+        RecTypeToString: <DvrService.Request.RecTypeToString & DataMatcherMap>{
             RecType: 'rt2'
         },
-        RecordedIdForPathname: <DvrService.Request.RecordedIdForPathname>{
+        RecordedIdForPathname: <DvrService.Request.RecordedIdForPathname & DataMatcherMap>{
             Pathname: 'pn'
         },
-        RemoveRecordSchedule: <DvrService.Request.RemoveRecordSchedule>{
+        RemoveRecordSchedule: <DvrService.Request.RemoveRecordSchedule & DataMatcherMap>{
             RecordId: 60
         },
-        RemoveRecorded: <DvrService.Request.RemoveRecorded>{
+        RemoveRecorded: <DvrService.Request.RemoveRecorded & DataMatcherMap>{
             RecordedId: 50
         },
-        SetSavedBookmark: <DvrService.Request.SetSavedBookmark>{
+        SetSavedBookmark: <DvrService.Request.SetSavedBookmark & DataMatcherMap>{
             RecordedId: 50
         },
-        StopRecording: <DvrService.Request.StopRecording>{
+        StopRecording: <DvrService.Request.StopRecording & DataMatcherMap>{
             RecordedId: 50
         },
-        UnDeleteRecording: <DvrService.Request.UnDeleteRecording>{
+        UnDeleteRecording: <DvrService.Request.UnDeleteRecording & DataMatcherMap>{
             RecordedId: 51
         },
         UpdateRecordSchedule: <DvrService.Request.UpdateRecordSchedule>{
@@ -200,10 +201,10 @@ describe('DvrService', () => {
             Transcoder: 1,
             Type: ''
         },
-        UpdateRecordedWatchedStatus: <DvrService.Request.UpdateRecordedWatchedStatus>{
+        UpdateRecordedWatchedStatus: <DvrService.Request.UpdateRecordedWatchedStatus & DataMatcherMap>{
             RecordedId: 51
         },
-        GetProgramCategories: <DvrService.Request.GetProgramCategories>{
+        GetProgramCategories: <DvrService.Request.GetProgramCategories & DataMatcherMap>{
             OnlyRecorded: false
         },
         RecordedIdForKey: <DvrService.Request.RecordedIdForKey>{
