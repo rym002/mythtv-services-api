@@ -15,23 +15,23 @@
   "author": "Raymond Munian",
   "license": "ISC",
   "devDependencies": {
-    "@types/chai": "^4.2.14",
-    "@types/chai-as-promised": "^7.1.2",
-    "@types/mocha": "^8.2.0",
+    "@types/chai": "^4.2.18",
+    "@types/chai-as-promised": "^7.1.4",
+    "@types/mocha": "^8.2.2",
     "@types/nock": "^10.0.3",
-    "@types/node": "^14.14.21",
-    "@types/qs": "^6.9.5",
-    "chai": "^4.2.0",
+    "@types/node": "^14.14.45",
+    "@types/qs": "^6.9.6",
+    "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
-    "mocha": "^8.2.1",
-    "nock": "^10.0.6",
+    "mocha": "^8.4.0",
+    "nock": "^13.0.11",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.9"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "moment": "^2.29.1",
-    "qs": "^6.9.6"
+    "qs": "^6.10.1"
   },
   "repository": {
     "url": "https://github.com/rym002/mythtv-services-api",
